@@ -6,7 +6,7 @@
 
     <groupId>me.aglerr</groupId>
     <artifactId>PlayerProfiles</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <version>6.0.0</version>
 
     <build>
@@ -44,10 +44,6 @@
 
         </plugins>
     </build>
-    <modules>
-        <module>WG7</module>
-        <module>WG6</module>
-    </modules>
 
     <repositories>
         <repository>
