@@ -1,0 +1,10 @@
+name: PlayerProfiles
+version: 6.0.0
+main: me.aglerr.playerprofiles.PlayerProfiles
+author: aglerr
+description: Plugin to show player profiles
+api-version: 1.13
+softdepend: [CombatLogX, DeluxeCombat, PlaceholderAPI, WorldGuard, WorldEdit]
+
+commands:
+  test:
