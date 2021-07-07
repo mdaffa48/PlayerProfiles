@@ -32,16 +32,27 @@ cooldown:
   duration: 3 #in seconds
   message: "{prefix} &cPlease wait for another {time} second(s)!"
 
-# Aliases for /playerprofiles command
-playerProfilesAliases:
-  - 'playerprofile'
-  - 'playerp'
-  - 'pp'
-
-# Aliases for /profile command
-profileAliases:
-  - 'viewprofile'
-  - 'p'
+# Aliases for commands in this plugin
+# Configuration Explanation:
+# (commandAliases)
+#   (playerProfiles) Aliases for /playerprofiles command (main command)
+#   (profile) Aliases for /profile command
+#   (lockProfile) Aliases for /lockprofile command
+#   (unlockProfile) Aliases for /unlockprofile command
+commandAliases:
+  playerProfiles:
+    - 'playerprofile'
+    - 'playerp'
+    - 'pp'
+  profile:
+    - 'viewprofile'
+    - 'p'
+  lockProfile:
+    - 'profilelock'
+    - 'lock'
+  unlockProfile:
+    - 'profileunlock'
+    - 'unlock'
 
 # If the world name is in the list and players location is inside
 # the world that are on the list, player are unable to open any player profiles

@@ -32,7 +32,7 @@ public class ProfileCommand implements CommandExecutor, TabCompleter {
         // Get the file configuration of config.yml
         FileConfiguration config = ConfigManager.CONFIG.getConfig();
         // Get the aliases from the config
-        List<String> aliases = config.getStringList("profileAliases");
+        List<String> aliases = config.getStringList("commandAliases.profile");
         // Add all aliases to the command
         plugin.getCommand(COMMAND_NAME).getAliases().addAll(aliases);
         // Trying to register the aliases from the config
@@ -102,10 +102,8 @@ public class ProfileCommand implements CommandExecutor, TabCompleter {
     @Nullable
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
-        if(args.length == 1){
-            List<String> suggestions = new ArrayList<>();
-            Bukkit.getOnlinePlayers().forEach(player -> suggestions.add(player.getName()));
-            return suggestions;
+        if(args.length == 1 && sender.hasPermission("playerprofiles.profile.others")){
+            return Common.getOnlinePlayersByName();
         }
         return new ArrayList<>();
     }

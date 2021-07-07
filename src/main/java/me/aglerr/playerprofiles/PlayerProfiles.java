@@ -3,13 +3,17 @@ package me.aglerr.playerprofiles;
 import me.aglerr.lazylibs.LazyLibs;
 import me.aglerr.lazylibs.inventory.LazyInventoryManager;
 import me.aglerr.lazylibs.libs.Common;
+import me.aglerr.playerprofiles.commands.LockCommand;
+import me.aglerr.playerprofiles.commands.MainCommand;
 import me.aglerr.playerprofiles.commands.ProfileCommand;
+import me.aglerr.playerprofiles.commands.UnlockCommand;
 import me.aglerr.playerprofiles.configs.ConfigManager;
 import me.aglerr.playerprofiles.events.PlayerInteract;
 import me.aglerr.playerprofiles.hooks.worldguard.WorldGuardWrapper;
 import me.aglerr.playerprofiles.inventory.InventoryManager;
 import me.aglerr.playerprofiles.manager.DependencyManager;
 import me.aglerr.playerprofiles.manager.customgui.CustomGUIManager;
+import me.aglerr.playerprofiles.manager.profile.ProfileManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -20,6 +24,7 @@ public class PlayerProfiles extends JavaPlugin {
 
     private final InventoryManager inventoryManager = new InventoryManager(this);
     private final CustomGUIManager customGUIManager = new CustomGUIManager(this);
+    private final ProfileManager profileManager = new ProfileManager();
     private WorldGuardWrapper worldGuardWrapper;
 
     @Override
@@ -44,15 +49,19 @@ public class PlayerProfiles extends JavaPlugin {
         worldGuardWrapper = new WorldGuardWrapper();
         // Register the lazy inventory manager
         LazyInventoryManager.register(this);
+        // Load all profile data
+        profileManager.loadProfileData();
         // Register the player interact event
         Bukkit.getPluginManager().registerEvents(new PlayerInteract(this), this);
-        // Register /profile command
-        new ProfileCommand(this).registerThisCommand();
+        // Register all commands
+        registerCommands();
     }
 
     @Override
     public void onDisable(){
         // Plugin shutdown logic
+        // Save all profile data
+        profileManager.saveProfileData();
     }
 
     public void reloadAllThing(){
@@ -64,6 +73,17 @@ public class PlayerProfiles extends JavaPlugin {
         inventoryManager.reInitialize();
         // Reload all custom guis
         customGUIManager.reloadCustomGUI();
+    }
+
+    private void registerCommands(){
+        // Register /playerprofiles command
+        new MainCommand(this).registerThisCommand();
+        // Register /profile command
+        new ProfileCommand(this).registerThisCommand();
+        // Register /lockprofile command
+        new LockCommand(this).registerThisCommand();
+        // Register /unlockprofile command
+        new UnlockCommand(this).registerThisCommand();
     }
 
     private boolean isHexAvailable(){
@@ -85,5 +105,9 @@ public class PlayerProfiles extends JavaPlugin {
 
     public WorldGuardWrapper getWorldGuardWrapper() {
         return worldGuardWrapper;
+    }
+
+    public ProfileManager getProfileManager() {
+        return profileManager;
     }
 }

@@ -40,7 +40,16 @@ public class ConfigValue {
 
     // Messages
     public static String NO_PERMISSION;
+    public static String RELOAD;
     public static String INVALID_PLAYER;
+    public static String LOCK_PROFILE;
+    public static String LOCK_PROFILE_OTHERS;
+    public static String UNLOCK_PROFILE;
+    public static String UNLOCK_PROFILE_OTHERS;
+    public static String INVALID_GUI_NAME;
+
+    // Messages List
+    public static List<String> HELP_MESSAGES;
 
     public static void initialize(){
         FileConfiguration config = ConfigManager.CONFIG.getConfig();
