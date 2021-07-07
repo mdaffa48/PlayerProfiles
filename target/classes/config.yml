@@ -15,6 +15,10 @@ options:
   update-gui-on-click: false #Basically every click will update the GUI, such as updating player armor and placeholder.
   blockedToggleCommand: true #Disable player from viewing toggled profile with command.
 
+autoRefresh:
+  enabled: true
+  refreshEvery: 20
+
 cooldown:
   enabled: true
   duration: 3 #in seconds
@@ -40,29 +44,12 @@ blockedProfile:
 # This option will check player1 and player2 distance
 # if player1 opened player2 profile and have > xx distance
 # the profile will be closed.
-distance-check:
+distanceCheck:
   enabled: true
-  # The distance is square root, make sure to get
-  # the calculator for it. For example:
-  # 108 distance would be 10 blocks in minecraft.
   distance: 30
-  close-on-quit: true
-  # This option basically will check distance
-  # between player with command. Normally
-  # this plugin will check only on interact.
-  enableOnCommand: false
-  message-too-far:
-    - '%prefix% &e%player% &cis too far from you!'
-  message-on-quit:
-    - '%prefix% &e%player% &cis leaving the server!'
+  tooFarMessage: "{prefix} &e{player} &cis too far from you!"
 
 gui:
-  fill-inventory:
-    enabled: true
-    item:
-      material: BLACK_STAINED_GLASS_PANE
-      amount: 1
-      name: '&f'
   title: "%player_name%'s profiles"
   size: 54
   items:

@@ -1,8 +1,12 @@
 package me.aglerr.playerprofiles.utils;
 
 import me.aglerr.lazylibs.libs.Common;
+import me.aglerr.playerprofiles.PlayerProfiles;
 import me.aglerr.playerprofiles.inventory.items.GUIItem;
+import me.aglerr.playerprofiles.manager.customgui.CustomGUI;
+import me.aglerr.playerprofiles.manager.customgui.CustomGUIManager;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -17,6 +21,8 @@ public class ClickManager {
     private static final Pattern pattern = Pattern.compile("(?<=\\[CONSOLE\\] |\\[PLAYER\\] |\\[SOUND\\] |\\[MESSAGE\\] |\\[OPENGUIMENU\\] |\\[CLOSE\\])");
 
     public static void handleInventoryClick(GUIItem item, Player player, Player target, InventoryClickEvent event){
+        // First of all, cancel the fucking event
+        event.setCancelled(true);
         // If the click type is LEFT, handle the left click
         if(event.getClick() == ClickType.LEFT)
             handleInventoryLeftClick(item, player, target);
@@ -66,6 +72,17 @@ public class ClickManager {
         }
         // Check if the tag is OPENGUIMENU
         if(tag.equalsIgnoreCase("[OPENGUIMENU] ")){
+            // Get the custom gui manager
+            CustomGUIManager customGUIManager = PlayerProfiles.getInstance().getCustomGUIManager();
+            // Get the custom gui from the task
+            CustomGUI customGUI = customGUIManager.getByName(finalTask);
+            // Return if the custom gui is invalid
+            if(customGUI == null){
+                Common.log(ChatColor.RED, player.getName() + " trying to open an invalid GUI! (" + finalTask + ")");
+                return;
+            }
+            // If the custom gui is valid, open the inventory to the player
+            PlayerProfiles.getInstance().getInventoryManager().openInventory(customGUI, player, target);
             // Open a custom menu (coming soon)
             return;
         }

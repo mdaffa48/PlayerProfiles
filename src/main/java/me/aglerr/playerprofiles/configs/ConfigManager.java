@@ -12,4 +12,9 @@ public class ConfigManager {
         GUI = new CustomConfig("gui.yml", null);
     }
 
+    public static void reload(){
+        CONFIG.reloadConfig();
+        GUI.reloadConfig();
+    }
+
 }

@@ -1,9 +1,12 @@
 package me.aglerr.playerprofiles.utils;
 
+import me.aglerr.lazylibs.inventory.LazyInventory;
+import me.aglerr.lazylibs.libs.Common;
 import me.aglerr.lazylibs.libs.ItemBuilder;
 import me.aglerr.lazylibs.libs.XMaterial;
 import me.aglerr.playerprofiles.inventory.items.GUIItem;
 import org.bukkit.Material;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -53,6 +56,9 @@ public class ItemManager {
     }
 
     public static ItemStack createGUIItem(GUIItem item, Player target){
+        if(item.getType() == null)
+            return ItemManager.createItem(item, target);
+
         switch(item.getType()){
             case "HELMET":
                 return createArmorItem(item, target, target.getInventory().getHelmet());
@@ -68,6 +74,30 @@ public class ItemManager {
                 return createArmorItem(item, target, target.getInventory().getItemInOffHand());
             default:
                 return ItemManager.createItem(item, target);
+        }
+    }
+
+    public static void fillItem(LazyInventory inventory, FileConfiguration config){
+        if(!config.getBoolean("fillItems.enabled")) return;
+        // Get the Optional XMaterial
+        Optional<XMaterial> optional = XMaterial.matchXMaterial(config.getString("fillItems.material"));
+        // If the XMaterial isn't present, just return
+        if(!optional.isPresent()) return;
+        // Get the ItemStack if the XMaterial is present
+        ItemStack stack = optional.get().parseItem();
+        // Item builder boiss.
+        ItemStack finalStack = new ItemBuilder(stack)
+                .name(Common.hex(config.getString("fillItems.name")))
+                .lore(Common.hex(config.getStringList("fillItems.lore")))
+                .build();
+        // Loop through all inventory slots
+        for (int i = 0; i < inventory.getInventory().getSize(); i++) {
+            // Get the item stack from the slot
+            ItemStack slotStack = inventory.getInventory().getItem(i);
+            // Skip if the slot is not null and the type is not material AIR
+            if(slotStack != null || slotStack.getType() != Material.AIR) continue;
+            // If all going well, we set the slot to the fillter item stack
+            inventory.setItem(i, finalStack);
         }
     }
 

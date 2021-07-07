@@ -1,5 +1,6 @@
 package me.aglerr.playerprofiles.inventory.items;
 
+import me.aglerr.playerprofiles.PlayerProfiles;
 import me.aglerr.playerprofiles.configs.ConfigManager;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -9,6 +10,11 @@ import java.util.List;
 public class ItemsLoader {
 
     private final List<GUIItem> mainMenuItems = new ArrayList<>();
+
+    private final PlayerProfiles plugin;
+    public ItemsLoader(PlayerProfiles plugin){
+        this.plugin = plugin;
+    }
 
     public void loadItems(){
         loadMainMenuItems();
@@ -21,9 +27,9 @@ public class ItemsLoader {
     }
 
     private void loadMainMenuItems(){
-        FileConfiguration config = ConfigManager.CONFIG.getConfig();
+        FileConfiguration config = ConfigManager.GUI.getConfig();
         // Return if there is no items
-        if(config.isConfigurationSection("items")) return;
+        if(!config.isConfigurationSection("items")) return;
         // Loop through all items
         for(String configKey : config.getConfigurationSection("items").getKeys(false)){
             String path = "items." + configKey;

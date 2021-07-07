@@ -1,121 +1,80 @@
-# PlayerProfiles by aglerr
-#
-# Material List: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
-# Sounds List: https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Sound.html
-#
-# Need support? Join my discord server https://discord.gg/D5x2fYzVv7
-# Wiki: https://aglerr.gitbook.io/wiki/
-# Thanks for using my plugin!
-
+# Configuration Explanation:
+# (options)
+#   (disableNPC) Should we disable viewing the NPC's profile?
+#   (disableInCombat)
+#     (enabled) Should we prevent player from opening profile while in combat?
+#     (message) The message that will be sent if player trying to open profile while in combat
+#   (shiftClick) Should player open profile by shift clicking?
+#                If disabled, right click will open player profile
 options:
-  disable-npc: true #Disable player from viewing NPC profile.
-  disable-in-combat: false #Required CombatLogX to run!
-  shift-click: true #With this options, player required to shift click to open others profiles.
-  interact-permission: false #Should we use permission when someone try to open profile with shift click?
-  update-gui-on-click: false #Basically every click will update the GUI, such as updating player armor and placeholder.
-  blockedToggleCommand: true #Disable player from viewing toggled profile with command.
+  disableNPC: true #Disable player from viewing NPC profile.
+  disableInCombat:
+    enabled: true
+    message: "{prefix} &cYou are not allowed to open profile while in combat!"
+  shiftClick: true
 
+# This feature is to auto update the placeholder on every item
+# Configuration Explanation:
+# (autoRefresh)
+#   (enabled) Should we enabled this feature?
+#   (refreshEvery) How often should we update the item? (Time is in ticks - 20 ticks = 1 second)
 autoRefresh:
   enabled: true
   refreshEvery: 20
 
+# This feature is to give player cooldown to open profiles
+# (cooldown)
+#   (enabled) Should we enable this feature?
+#   (duration) How long is the cooldown? (Time in second)
+#   (message) Message that will be sent if player trying to open profile while on cooldown
 cooldown:
   enabled: true
   duration: 3 #in seconds
+  message: "{prefix} &cPlease wait for another {time} second(s)!"
 
-#Aliases for /playerprofiles command.
-aliases:
-  - playerp
-  - pprofiles
+# Aliases for /playerprofiles command
+playerProfilesAliases:
+  - 'playerprofile'
+  - 'playerp'
+  - 'pp'
 
+# Aliases for /profile command
+profileAliases:
+  - 'viewprofile'
+  - 'p'
+
+# If the world name is in the list and players location is inside
+# the world that are on the list, player are unable to open any player profiles
+# Note: The world name is case sensitive
 disabledWorlds:
-  - pvpworld
-  - testworld
-  - casesensitive
+  message: "{prefix} &cYou are not allowed to open profile in this world!"
+  worlds:
+    - 'pvpWorld'
+    - 'testWorld'
 
-# This option will entirely blocked their profile
-# from being seen by someone.
-blockedProfile:
-  enabled: false
-  list:
-    - aglerr
-    - Notch
+# If the region name is in this list, player are unable to
+# open other's player profile with condition if the player/others location
+# is inside the disable regions (the region name is case-sensitive)
+disabledRegions:
+  playerInDisabledRegionMessage: "{prefix} &cYou are not allowed to open profile in this region!"
+  targetInDisabledRegionMessage: "{prefix} &cThe target is in disabled region area!"
+  regions:
+    - 'disabledRegions'
 
-# This option will check player1 and player2 distance
-# if player1 opened player2 profile and have > xx distance
-# the profile will be closed.
+# This feature is to check between player1 (the player) and player2 (the target) location distance
+# if the distance is greater than the configured distance - player1 will close the profile inventory
+# Configuration Explanation:
+# (distanceCheck)
+#   (enabled) Should we enabled this feature?
+#   (distance) The maximum distance (number is in blocks)
+#   (tooFarMessage) Message if the distance is greater than the configured distance
 distanceCheck:
   enabled: true
   distance: 30
   tooFarMessage: "{prefix} &e{player} &cis too far from you!"
 
-gui:
-  title: "%player_name%'s profiles"
-  size: 54
-  items:
-    helmet:
-      enabled: true
-      material: RED_STAINED_GLASS_PANE
-      slot: 10
-      glowing: false
-      hide_attributes: true
-      CustomModelData: 0 #Only for 1.14+
-      name: "&6Helmet"
-      lore:
-        - "&cEmpty!"
-    chestplate:
-      enabled: true
-      material: RED_STAINED_GLASS_PANE
-      slot: 19
-      glowing: false
-      hide_attributes: true
-      CustomModelData: 0 #Only for 1.14+
-      name: "&6Chestplate"
-      lore:
-        - "&cEmpty!"
-    leggings:
-      enabled: true
-      material: RED_STAINED_GLASS_PANE
-      slot: 28
-      glowing: false
-      hide_attributes: true
-      CustomModelData: 0 #Only for 1.14+
-      name: "&6Leggings"
-      lore:
-        - "&cEmpty!"
-    boots:
-      enabled: true
-      material: RED_STAINED_GLASS_PANE
-      slot: 37
-      glowing: false
-      hide_attributes: true
-      CustomModelData: 0 #Only for 1.14+
-      name: "&6Boots"
-      lore:
-        - "&cEmpty!"
-    main-hand:
-      enabled: true
-      material: RED_STAINED_GLASS_PANE
-      slot: 20
-      glowing: false
-      hide_attributes: true
-      CustomModelData: 0
-      name: "&6Main Hand"
-      lore:
-        - "&cEmpty!"
-    off-hand: # Only for 1.9+ version. (Will return null)
-      enabled: true
-      material: RED_STAINED_GLASS_PANE
-      slot: 29
-      glowing: false
-      hide_attributes: true
-      CustomModelData: 0
-      name: "&6Off Hand"
-      lore:
-        - "&cEmpty!"
-
 sounds:
-  onOpen:
+  onProfileOpen:
     enabled: true
     sound: BLOCK_LAVA_POP
     volume: 1

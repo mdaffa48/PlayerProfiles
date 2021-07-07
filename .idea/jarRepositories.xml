@@ -27,6 +27,11 @@
       <option name="url" value="https://repo.codemc.io/repository/maven-public/" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="sirblobman-public" />
+      <option name="name" value="sirblobman-public" />
+      <option name="url" value="https://nexus.sirblobman.xyz/repository/public/" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="maven-central" />
       <option name="name" value="maven-central" />
       <option name="url" value="https://oss.sonatype.org/content/groups/public" />

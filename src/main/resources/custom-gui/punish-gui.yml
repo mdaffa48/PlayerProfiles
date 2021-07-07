@@ -1,0 +1,10 @@
+title: '&8Punishment GUI (&e{player}&8)'
+size: 36
+
+fillItems:
+  enabled: true
+  material: BLACK_STAINED_GLASS_PANE
+  name: "&f"
+  lore: []
+
+items:

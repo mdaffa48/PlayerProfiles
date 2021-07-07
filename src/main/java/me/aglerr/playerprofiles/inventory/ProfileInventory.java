@@ -1,10 +1,10 @@
 package me.aglerr.playerprofiles.inventory;
 
-import com.google.common.primitives.Ints;
 import me.aglerr.lazylibs.inventory.LazyInventory;
 import me.aglerr.lazylibs.libs.Common;
 import me.aglerr.lazylibs.libs.Executor;
 import me.aglerr.playerprofiles.ConfigValue;
+import me.aglerr.playerprofiles.configs.ConfigManager;
 import me.aglerr.playerprofiles.inventory.items.GUIItem;
 import me.aglerr.playerprofiles.utils.ClickManager;
 import me.aglerr.playerprofiles.utils.ItemManager;
@@ -17,7 +17,7 @@ import java.util.List;
 public class ProfileInventory extends LazyInventory {
 
     public ProfileInventory(List<GUIItem> items, Player player, Player target, int size, String title) {
-        super(size, Common.color(title));
+        super(size, Common.color(title.replace("{player}", target.getName())));
 
         this.setAllItems(items, player, target);
 
@@ -61,12 +61,13 @@ public class ProfileInventory extends LazyInventory {
                 if(!player.equals(target)) return;
             }
             // Now, set the item to the inventory
-            this.setItems(Ints.toArray(item.getSlots()), stack, event -> {
+            this.setItems(item.getSlots(), stack, event -> {
                 // Set the click event for the item
                 ClickManager.handleInventoryClick(item, player, target, event);
             });
-
         });
+        // After all items being set, we finally set the fill items
+        ItemManager.fillItem(this, ConfigManager.GUI.getConfig());
     }
 
     private void checkDistance(Player player, Player target){
