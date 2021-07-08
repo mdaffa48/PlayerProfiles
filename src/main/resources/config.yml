@@ -71,6 +71,7 @@ disabledRegions:
   targetInDisabledRegionMessage: "{prefix} &cThe target is in disabled region area!"
   regions:
     - 'disabledRegions'
+    - 'pvp'
 
 # This feature is to check between player1 (the player) and player2 (the target) location distance
 # if the distance is greater than the configured distance - player1 will close the profile inventory
@@ -92,43 +93,23 @@ sounds:
     pitch: 1
 
 messages:
-  prefix: '&6&l[!]'
-  disabled-worlds: "%prefix% &cYou can't view players profiles on this world!"
-  in-combat: "%prefix% &cYou can't open players profiles while in combat!"
-  target-not-found: "%prefix% &cTarget is not online!"
+  prefix: '&8[&6Profile&8]'
+  noPermission: "{prefix} &cYou are lacking permission '{permission}'"
+  reload: "{prefix} &aYou have reloaded the configuration!"
+  invalidPlayer: "{prefix} &cThe player '{player}' is not online!"
+  targetProfileLocked: "{prefix} &cThe target profile is locked!"
+  lockProfile: "{prefix} &7You have &clocked &7your profile."
+  lockProfileOthers: "{prefix} &7You have &clocked &7{player}'s profile."
+  unlockProfile: "{prefix} &7You have &aunlocked &7your profile."
+  unlockProfileOthers: "{prefix} &7You have &aunlocked &7{player}'s profile."
+  invalidGUIName: "{prefix} &cThere is no GUI with name '{gui}' &7(See /playerprofiles listgui)"
+  listGUI: "{prefix} &7List GUI: &a{gui}"
   help:
-    - "&6Player Profiles &7- by aglerr"
-    - "&6/playerprofiles help &7- brings up this messages."
-    - "&6/playerprofiles reload &7- reload the configuration."
-    - "&6/playerprofiles toggle &7- block/unblock someone from viewing your profile."
-    - "&6/playerprofiles creategui <name> &7- create a new gui."
-    - "&6/playerprofiles deletegui <name> &7- delete a specific gui."
-    - "&6/playerprofiles opengui <name> [player] &7- open a gui."
-    - "&6/playerprofiles listgui &7- shows a list of loaded gui."
-  help-player:
-    - "&6Player Profiles &7- by aglerr"
-    - "&6/playerprofiles help &7- bring this help messages."
-    - "&6/playerprofiles toggle &7- block/unblock someone from viewing your profile."
-  reload: "%prefix% &aYou have successfully reloaded the plugin."
-  open-message: "%prefix% &aYou have opened &e%player_name% &aprofiles!"
-  on-cooldown: "%prefix% &cYou need to wait &e%time% seconds &cremaining!"
-  profileLocked: "%prefix% &cThat player profile is blocked!"
-  lockProfile:
-    - "&f"
-    - "%prefix% &fYou have &c&lLOCKED &fyour profile!"
-    - "%prefix% &7No one can see your profile now."
-    - "&f"
-  unlockProfile:
-    - "&f"
-    - "%prefix% &fYou have &a&lUNLOCK &fyour profile!"
-    - "%prefix% &7Everyone can see your profile now."
-    - "&f"
-  createGUI: "%prefix% &aYou have successfully created a new GUI called &e%guiName%"
-  deleteGUI: "%prefix% &cYou have successfully deleted a GUI called &e%guiName%"
-  guiAlreadyExist: "%prefix% &cA GUI called &e%guiName% &cis already exists!"
-  guiNotFound: "%prefix% &cCould not find any GUI called &e%guiName%&c."
-  listFiles: "%prefix% &fLoaded GUIs: &a%files%"
-  noPermission: "%prefix% &cYou are lacking permission &f%permission%"
-  invalidUsage: "%prefix% &cInvalid usage: %usage%"
-  differentWorld: "%prefix% &cYou are on different world with &e%player%&a."
-  blockedProfile: "%prefix% &cYou cannot see this player profile!"
+    - "&6&lPlayerProfiles &7- by aglerr"
+    - "&6- /playerprofiles help &7- shows the help messages"
+    - "&6- /playerprofiles reload &7- reload the configuration"
+    - "&6- /playerprofiles opengui (player) (target) (gui-name) &7- open custom gui"
+    - "&6- /playerprofiles listgui &7- see the list of custom gui names"
+    - "&6- /lockprofile [player] &7- lock your own/others profile"
+    - "&6- /unlockprofile [player] &7- unlock your own/others profile"
+    - "&6- /profile [player] &7- see your own/others profile"

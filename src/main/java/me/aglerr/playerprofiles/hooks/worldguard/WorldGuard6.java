@@ -11,7 +11,7 @@ import java.util.List;
 public class WorldGuard6 implements IRegionFinder{
 
     @Override
-    public List<String> getRegionInLocation(@NotNull Location location) {
+    public @NotNull List<String> getRegions(@NotNull Location location) {
         // Get the ApplicableRegionSet from the location
         com.sk89q.worldguard.protection.ApplicableRegionSet ars = WGBukkit.getPlugin().getRegionContainer().createQuery().getApplicableRegions(location);
         // Create an empty array list of string

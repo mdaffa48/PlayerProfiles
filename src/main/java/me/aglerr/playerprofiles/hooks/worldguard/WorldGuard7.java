@@ -12,7 +12,7 @@ import java.util.List;
 public class WorldGuard7 implements IRegionFinder{
 
     @Override
-    public List<String> getRegionInLocation(@NotNull Location location) {
+    public @NotNull List<String> getRegions(@NotNull Location location) {
         // Get the location util using BukkitAdapter
         com.sk89q.worldedit.util.Location loc = BukkitAdapter.adapt(location);
         // Get the RegionContainer

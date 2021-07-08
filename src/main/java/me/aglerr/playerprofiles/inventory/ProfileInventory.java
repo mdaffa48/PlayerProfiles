@@ -8,6 +8,7 @@ import me.aglerr.playerprofiles.configs.ConfigManager;
 import me.aglerr.playerprofiles.inventory.items.GUIItem;
 import me.aglerr.playerprofiles.utils.ClickManager;
 import me.aglerr.playerprofiles.utils.ItemManager;
+import me.aglerr.playerprofiles.utils.Utils;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
@@ -17,7 +18,7 @@ import java.util.List;
 public class ProfileInventory extends LazyInventory {
 
     public ProfileInventory(List<GUIItem> items, Player player, Player target, int size, String title) {
-        super(size, Common.color(title.replace("{player}", target.getName())));
+        super(size, Utils.tryParsePAPI(title, player, target));
 
         this.setAllItems(items, player, target);
 
@@ -44,7 +45,7 @@ public class ProfileInventory extends LazyInventory {
         // Loop through all items
         items.forEach(item -> {
             // Get the item stack
-            ItemStack stack = ItemManager.createGUIItem(item, target);
+            ItemStack stack = ItemManager.createGUIItem(item, player, target);
             // Check if the item use permission to see
             if(item.isUsePermission()){
                 // If the player doesn't have the permission, don't show it
@@ -83,5 +84,4 @@ public class ProfileInventory extends LazyInventory {
                     .replace("{player}", target.getName()));
         }
     }
-
 }

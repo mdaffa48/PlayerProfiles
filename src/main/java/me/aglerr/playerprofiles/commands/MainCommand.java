@@ -4,7 +4,9 @@ import me.aglerr.lazylibs.libs.Common;
 import me.aglerr.playerprofiles.ConfigValue;
 import me.aglerr.playerprofiles.PlayerProfiles;
 import me.aglerr.playerprofiles.commands.abstraction.SubCommand;
+import me.aglerr.playerprofiles.commands.subcommands.ListGUICommand;
 import me.aglerr.playerprofiles.commands.subcommands.OpenGUICommand;
+import me.aglerr.playerprofiles.commands.subcommands.OpenProfileCommand;
 import me.aglerr.playerprofiles.commands.subcommands.ReloadCommand;
 import me.aglerr.playerprofiles.configs.ConfigManager;
 import org.bukkit.Bukkit;
@@ -30,6 +32,10 @@ public class MainCommand implements CommandExecutor, TabCompleter {
         this.subCommandMap.put("reload", new ReloadCommand());
         // Open GUI command
         this.subCommandMap.put("opengui", new OpenGUICommand());
+        // List GUI command
+        this.subCommandMap.put("listgui", new ListGUICommand());
+        // Open profile command
+        this.subCommandMap.put("openprofile", new OpenProfileCommand());
     }
 
     public void registerThisCommand(){
@@ -94,7 +100,7 @@ public class MainCommand implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, String[] args) {
 
         if(args.length == 1){
-            return Arrays.asList("reload");
+            return new ArrayList<>(this.subCommandMap.keySet());
         }
 
         if(args.length >= 2){

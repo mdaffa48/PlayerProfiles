@@ -1,5 +1,5 @@
-title: '&8Punishment GUI (&e{player}&8)'
-size: 36
+title: "&8Punishment GUI (&a{target}&8)"
+size: 27
 
 fillItems:
   enabled: true
@@ -8,3 +8,38 @@ fillItems:
   lore: []
 
 items:
+  banPlayer:
+    material: DIAMOND_AXE
+    name: "&6Ban {target}"
+    slots: [ 11 ]
+    glowing: false
+    hideAttributes: false
+    customModelData: 0
+    onlyVisitor: true
+    onlyOwner: false
+    usePermission: true
+    permission: "playerprofiles.ban"
+    lore:
+      - "&7Click to ban {target}"
+    leftClickCommands:
+      - "[CONSOLE] ban {target}"
+      - "[MESSAGE] &8[&6Profile&8] &aYou have banned &e{target}"
+      - "[CLOSE]"
+    rightClickCommands:
+      - "[CONSOLE] ban {target}"
+      - "[MESSAGE] &8[&6Profile&8] &aYou have banned &e{target}"
+      - "[CLOSE]"
+  backButton:
+    material: BARRIER
+    name: "&cBack"
+    slots: [ 18 ]
+    glowing: false
+    hideAttributes: false
+    customModelData: 0
+    onlyVisitor: false
+    onlyOwner: false
+    usePermission: false
+    permission: "custom.permission"
+    lore: []
+    leftClickCommands:
+      - "[CONSOLE] playerprofiles openprofile {target} {player}"

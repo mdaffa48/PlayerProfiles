@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface IRegionFinder {
 
-    List<String> getRegionInLocation(@NotNull Location location);
+    @NotNull
+    List<String> getRegions(@NotNull Location location);
 
 }

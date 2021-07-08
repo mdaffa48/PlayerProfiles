@@ -5,9 +5,10 @@ import me.aglerr.playerprofiles.ConfigValue;
 import me.aglerr.playerprofiles.PlayerProfiles;
 import me.aglerr.playerprofiles.hooks.combatlogx.HCombatLogX;
 import me.aglerr.playerprofiles.hooks.deluxecombat.HDeluxeCombat;
-import me.aglerr.playerprofiles.hooks.worldguard.IRegionFinder;
+import me.aglerr.playerprofiles.hooks.worldguard.WorldGuardWrapper;
 import me.aglerr.playerprofiles.inventory.InventoryManager;
 import me.aglerr.playerprofiles.manager.DependencyManager;
+import me.aglerr.playerprofiles.manager.profile.ProfileManager;
 import me.aglerr.playerprofiles.utils.Utils;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -54,6 +55,16 @@ public class PlayerInteract implements Listener {
             if(target.hasMetadata("NPC"))
                 return;
         }
+        // Profile locked feature, basically every player can lock their profile
+        // so no one can open their profile. First, we need to get the ProfileManager
+        ProfileManager profileManager = plugin.getProfileManager();
+        if(profileManager.isProfileLocked(target)){
+            // Send a message to the player
+            player.sendMessage(Common.color(ConfigValue.LOCKED_PROFILE
+                    .replace("{prefix}", ConfigValue.PREFIX)));
+            // Stop the code
+            return;
+        }
         // First, check for the cooldown feature, and now we check if the player is in cooldown
         if(mapCooldown.containsKey(player)){
             // Get the time left
@@ -82,18 +93,16 @@ public class PlayerInteract implements Listener {
         // regions, the player cannot open the profile
         // First of all, check if the world guard is enabled
         if(DependencyManager.WORLD_GUARD){
-            // Get the RegionFinder class
-            IRegionFinder regionFinder = plugin.getWorldGuardWrapper().getRegionFinder();
             // First, we check for the player location, if the region is listed on the disabled regions
             // we stopped the code
-            for(String region : regionFinder.getRegionInLocation(player.getLocation())){
+            for(String region : WorldGuardWrapper.getRegions(player.getLocation())){
                 if(ConfigValue.DISABLED_REGIONS.contains(region))
                     player.sendMessage(Common.color(ConfigValue.PLAYER_DISABLED_REGIONS
                             .replace("{prefix}", ConfigValue.PREFIX)));
                     return;
             }
             // Now, we check for the target location
-            for(String region : regionFinder.getRegionInLocation(target.getLocation())){
+            for(String region : WorldGuardWrapper.getRegions(target.getLocation())){
                 if(ConfigValue.DISABLED_REGIONS.contains(region))
                     player.sendMessage(Common.color(ConfigValue.TARGET_DISABLED_REGIONS
                             .replace("{prefix}", ConfigValue.PREFIX)));

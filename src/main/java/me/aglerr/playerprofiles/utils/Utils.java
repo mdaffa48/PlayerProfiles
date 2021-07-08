@@ -5,12 +5,14 @@ import me.aglerr.lazylibs.libs.XSound;
 import me.aglerr.playerprofiles.PlayerProfiles;
 import me.aglerr.playerprofiles.configs.ConfigManager;
 import me.aglerr.playerprofiles.manager.DependencyManager;
+import me.aglerr.playerprofiles.manager.profile.ProfileManager;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,28 +27,42 @@ public class Utils {
                 Bukkit.getVersion().contains("1.17");
     }
 
-    public static String tryParsePAPI(String message, Player target){
+    public static String tryParsePAPI(@NotNull String message, Player player, Player target){
         // Get the final message with hex
-        String finalMessage = PlayerProfiles.HEX_AVAILABLE ? Common.hex(message) : message;
-        // Finally, return the value with placeholder api support
-        return DependencyManager.PLACEHOLDER_API ?
-                PlaceholderAPI.setPlaceholders(target, finalMessage) :
-                finalMessage;
+        String hexMessage = PlayerProfiles.HEX_AVAILABLE ? Common.hex(message) : message;
+        // Get the value with placeholder api support
+        String papiMessage = DependencyManager.PLACEHOLDER_API ? PlaceholderAPI.setPlaceholders(target, hexMessage) : hexMessage;
+        // Get the profile manager
+        ProfileManager profileManager = PlayerProfiles.getInstance().getProfileManager();
+        // Player profile status
+        String playerStatus = profileManager.isProfileLocked(player) ? "&cLocked" : "&aUnlocked";
+        // Target profile status
+        String targetStatus = profileManager.isProfileLocked(target) ? "&cLocked" : "&aUnlocked";
+        // Finally, return the value with parsed player and target
+        return papiMessage
+                .replace("{player}", player.getName())
+                .replace("{target}", target.getName())
+                .replace("{player-status}", playerStatus)
+                .replace("{target-status}", targetStatus)
+                .replace("{player_health}", player.getHealth() + "")
+                .replace("{target_health}", target.getHealth() + "")
+                .replace("{player_exp}", player.getExp() + "")
+                .replace("{target_exp}", target.getExp() + "")
+                .replace("{player_level}", player.getLevel() + "")
+                .replace("{target_level}", target.getLevel() + "")
+                .replace("{player_uuid}", player.getUniqueId().toString())
+                .replace("{target_uuid}", target.getUniqueId().toString())
+                .replace("{player_world}", player.getWorld().getName())
+                .replace("{target_world}", target.getWorld().getName());
     }
 
-    public static List<String> tryParsePAPI(List<String> message, Player target){
-        // Check if placeholder api is not enabled
-        if(!DependencyManager.PLACEHOLDER_API)
-            // Return the colored message with hex support
-            return PlayerProfiles.HEX_AVAILABLE ? Common.hex(message) : Common.color(message);
+    public static List<String> tryParsePAPI(@NotNull List<String> message, Player player, Player target){
         // Create an empty list of string
         List<String> translated = new ArrayList<>();
         // Loop through all the messages
         for(String text : message){
             // Add the message to the list with translated hex and placeholder api
-            translated.add(
-                    PlaceholderAPI.setPlaceholders(target, PlayerProfiles.HEX_AVAILABLE ? Common.hex(text) : text)
-            );
+            translated.add(tryParsePAPI(text, player, target));
         }
         // Finally, return the list
         return translated;

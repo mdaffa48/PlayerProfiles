@@ -9,7 +9,6 @@ import me.aglerr.playerprofiles.commands.ProfileCommand;
 import me.aglerr.playerprofiles.commands.UnlockCommand;
 import me.aglerr.playerprofiles.configs.ConfigManager;
 import me.aglerr.playerprofiles.events.PlayerInteract;
-import me.aglerr.playerprofiles.hooks.worldguard.WorldGuardWrapper;
 import me.aglerr.playerprofiles.inventory.InventoryManager;
 import me.aglerr.playerprofiles.manager.DependencyManager;
 import me.aglerr.playerprofiles.manager.customgui.CustomGUIManager;
@@ -25,7 +24,6 @@ public class PlayerProfiles extends JavaPlugin {
     private final InventoryManager inventoryManager = new InventoryManager(this);
     private final CustomGUIManager customGUIManager = new CustomGUIManager(this);
     private final ProfileManager profileManager = new ProfileManager();
-    private WorldGuardWrapper worldGuardWrapper;
 
     @Override
     public void onEnable(){
@@ -45,8 +43,6 @@ public class PlayerProfiles extends JavaPlugin {
         inventoryManager.initialize();
         // Load all custom guis
         customGUIManager.loadCustomGUI();
-        // Initialize the world guard wrapper
-        worldGuardWrapper = new WorldGuardWrapper();
         // Register the lazy inventory manager
         LazyInventoryManager.register(this);
         // Load all profile data
@@ -101,10 +97,6 @@ public class PlayerProfiles extends JavaPlugin {
 
     public CustomGUIManager getCustomGUIManager() {
         return customGUIManager;
-    }
-
-    public WorldGuardWrapper getWorldGuardWrapper() {
-        return worldGuardWrapper;
     }
 
     public ProfileManager getProfileManager() {

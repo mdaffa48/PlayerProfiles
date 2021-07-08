@@ -39,10 +39,16 @@ public class GUIItem {
     }
 
     public String getType(){
+        if(type == null){
+            return "DUMMY";
+        }
         return type;
     }
 
     public String getMaterial() {
+        if(material == null){
+            return "BARRIER";
+        }
         return material;
     }
 
@@ -51,6 +57,9 @@ public class GUIItem {
     }
 
     public String getName() {
+        if(name == null){
+            return "&cInvalid name! Specify it on the config!";
+        }
         return name;
     }
 
@@ -71,6 +80,9 @@ public class GUIItem {
     }
 
     public String getPermission() {
+        if(permission == null){
+            return "invalid.permission";
+        }
         return permission;
     }
 

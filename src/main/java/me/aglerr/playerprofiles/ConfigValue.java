@@ -42,11 +42,13 @@ public class ConfigValue {
     public static String NO_PERMISSION;
     public static String RELOAD;
     public static String INVALID_PLAYER;
+    public static String LOCKED_PROFILE;
     public static String LOCK_PROFILE;
     public static String LOCK_PROFILE_OTHERS;
     public static String UNLOCK_PROFILE;
     public static String UNLOCK_PROFILE_OTHERS;
     public static String INVALID_GUI_NAME;
+    public static String LIST_GUI;
 
     // Messages List
     public static List<String> HELP_MESSAGES;
@@ -77,6 +79,19 @@ public class ConfigValue {
         COOLDOWN_ENABLED = config.getBoolean("cooldown.enabled");
         COOLDOWN_TIME = config.getInt("cooldown.duration");
         COOLDOWN_MESSAGE = config.getString("cooldown.message");
+
+        NO_PERMISSION = config.getString("messages.noPermission");
+        RELOAD = config.getString("messages.reload");
+        INVALID_PLAYER = config.getString("messages.noPermission");
+        LOCKED_PROFILE = config.getString("messages.targetProfileLocked");
+        LOCK_PROFILE = config.getString("messages.lockProfile");
+        LOCK_PROFILE_OTHERS = config.getString("messages.lockProfileOthers");
+        UNLOCK_PROFILE = config.getString("messages.unlockProfile");
+        UNLOCK_PROFILE_OTHERS = config.getString("messages.unlockProfileOthers");
+        INVALID_GUI_NAME = config.getString("messages.invalidGUIName");
+        LIST_GUI = config.getString("messages.listGUI");
+
+        HELP_MESSAGES = config.getStringList("messages.help");
     }
 
 }

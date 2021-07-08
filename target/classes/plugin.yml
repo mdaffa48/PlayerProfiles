@@ -7,4 +7,11 @@ api-version: 1.13
 softdepend: [CombatLogX, DeluxeCombat, PlaceholderAPI, WorldGuard, WorldEdit]
 
 commands:
-  test:
+  playerprofiles:
+    aliases: []
+  profile:
+    aliases: []
+  unlockProfile:
+    aliases: []
+  lockProfile:
+    aliases: []

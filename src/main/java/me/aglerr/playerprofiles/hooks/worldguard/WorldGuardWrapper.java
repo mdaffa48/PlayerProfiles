@@ -1,12 +1,15 @@
 package me.aglerr.playerprofiles.hooks.worldguard;
 
 import me.aglerr.playerprofiles.manager.DependencyManager;
+import org.bukkit.Location;
+
+import java.util.List;
 
 public class WorldGuardWrapper {
 
-    private IRegionFinder regionFinder;
+    private static IRegionFinder regionFinder;
 
-    public WorldGuardWrapper(){
+    protected static void initialize(){
         // Return if world guard is not enabled
         if(!DependencyManager.WORLD_GUARD) return;
         // Check if the world guard version is 6
@@ -19,7 +22,11 @@ public class WorldGuardWrapper {
             regionFinder = new WorldGuard7();
     }
 
-    public IRegionFinder getRegionFinder() {
-        return regionFinder;
+    public static List<String> getRegions(Location location){
+        if(regionFinder == null){
+            initialize();
+        }
+        return regionFinder.getRegions(location);
     }
+
 }

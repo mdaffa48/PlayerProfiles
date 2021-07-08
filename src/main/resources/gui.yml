@@ -1,4 +1,4 @@
-title: "{player}'s Profiles"
+title: "{target}'s Profiles"
 size: 54
 
 fillItems:
@@ -8,6 +8,27 @@ fillItems:
   lore: []
 
 items:
+  customMenu:
+    material: DIAMOND_AXE
+    name: "&ePunish {target}"
+    slots: [ 23 ]
+    glowing: false
+    hideAttributes: true
+    customModelData: 0
+    onlyOwner: false
+    onlyVisitor: true
+    usePermission: true
+    permission: "playerprofiles.punishgui"
+    lore:
+      - "&7This item can only be seen by the"
+      - "&7profile visitors with permission"
+      - "&7'playerprofiles.punishgui'"
+      - ""
+      - "&aClick to punish {target}"
+    leftClickCommands:
+      - "[OPENGUIMENU] punish-gui.yml"
+    rightClickCommands:
+      - "[OPENGUIMENU] punish-gui.yml"
   exampleHelmet:
     type: HELMET
     material: RED_STAINED_GLASS_PANE
@@ -40,7 +61,7 @@ items:
     type: LEGGINGS
     material: RED_STAINED_GLASS_PANE
     name: "&eLeggings"
-    slots: [ 18 ]
+    slots: [ 28 ]
     glowing: true
     hideAttributes: false
     customModelData: 0
@@ -92,3 +113,50 @@ items:
     permission: "custom.permission"
     lore:
       - "&cEmpty!"
+  unlockProfile:
+    material: head;eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjA3ZmJjMzM5ZmYyNDFhYzNkNjYxOWJjYjY4MjUzZGZjM2M5ODc4MmJhZjNmMWY0ZWZkYjk1NGY5YzI2In19fQ==
+    name: "&aUnlock Profile"
+    slots: [ 53 ]
+    glowing: true
+    hideAttributes: false
+    customModelData: 0
+    onlyOwner: true
+    onlyVisitor: false
+    usePermission: false
+    permission: "custom.permission"
+    lore:
+      - "&7Click to unlock your profile"
+    leftClickCommands:
+      - "[PLAYER] unlockprofile"
+    rightClickCommands:
+      - "[PLAYER] unlockprofile"
+  profileStatus:
+    material: CHEST
+    name: "&6Profile Status"
+    slots: [ 52 ]
+    glowing: false
+    hideAttributes: false
+    customModelData: 0
+    onlyOwner: true
+    onlyVisitor: false
+    usePermission: false
+    permission: "custom.permission"
+    lore:
+      - "{target-status}"
+  lockProfile:
+    material: head;eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzE5ZjUwYjQzMmQ4NjhhZTM1OGUxNmY2MmVjMjZmMzU0MzdhZWI5NDkyYmNlMTM1NmM5YWE2YmIxOWEzODYifX19
+    name: "&cLock Profile"
+    slots: [ 51 ]
+    glowing: true
+    hideAttributes: false
+    customModelData: 0
+    onlyOwner: true
+    onlyVisitor: false
+    usePermission: false
+    permission: "custom.permission"
+    lore:
+      - "&7Click to lock your profile"
+    leftClickCommands:
+      - "[PLAYER] lockprofile"
+    rightClickCommands:
+      - "[PLAYER] lockprofile"

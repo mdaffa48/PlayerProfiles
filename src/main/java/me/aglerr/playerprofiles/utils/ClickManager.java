@@ -49,7 +49,7 @@ public class ClickManager {
         List<String> taskList = new ArrayList<>(Arrays.asList(cmds).subList(1, cmds.length));
         String task = cmds.length > 1 ? String.join(" ", taskList) : "";
         // Get the final arguments with parsed placeholder
-        String finalTask = Utils.tryParsePAPI(task, target)
+        String finalTask = Utils.tryParsePAPI(task, player, target)
                 .replace("{player}", player.getName())
                 .replace("{target}", target.getName());
         // Check if the tag is CONSOLE

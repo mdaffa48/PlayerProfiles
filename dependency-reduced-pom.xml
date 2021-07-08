@@ -22,7 +22,7 @@
           <relocations>
             <relocation>
               <pattern>me.aglerr.lazylibs</pattern>
-              <shadedPattern>me.aglerr.donations.libs</shadedPattern>
+              <shadedPattern>me.aglerr.playerprofiles.utils</shadedPattern>
             </relocation>
           </relocations>
         </configuration>
@@ -53,6 +53,10 @@
       <id>enginehub-maven</id>
       <url>https://maven.enginehub.org/repo/</url>
     </repository>
+    <repository>
+      <id>sirblobman-public</id>
+      <url>https://nexus.sirblobman.xyz/repository/public/</url>
+    </repository>
   </repositories>
   <dependencies>
     <dependency>
@@ -68,9 +72,21 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
+      <groupId>com.SirBlobman.combatlogx</groupId>
+      <artifactId>CombatLogX-API</artifactId>
+      <version>10.0.0.0-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
       <groupId>com.sk89q.worldguard</groupId>
       <artifactId>worldguard-legacy</artifactId>
       <version>6.2</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.sk89q.worldguard</groupId>
+      <artifactId>worldguard-core</artifactId>
+      <version>7.0.0-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -80,10 +96,11 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>com.sk89q.worldguard</groupId>
-      <artifactId>worldguard-core</artifactId>
-      <version>7.0.0-SNAPSHOT</version>
-      <scope>provided</scope>
+      <groupId>com.deluxecombat</groupId>
+      <artifactId>deluxecombatapi</artifactId>
+      <version>1.0</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/deps/DeluxeCombatAPI.jar</systemPath>
     </dependency>
   </dependencies>
 </project>

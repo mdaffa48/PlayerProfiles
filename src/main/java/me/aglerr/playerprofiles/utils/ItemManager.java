@@ -16,7 +16,7 @@ import java.util.Optional;
 
 public class ItemManager {
 
-    public static ItemStack createItem(GUIItem item, Player target){
+    public static ItemStack createItem(GUIItem item, Player player, Player target){
         ItemBuilder builder;
         // Check if the item material contains ';'
         if(item.getMaterial().contains(";")){
@@ -24,11 +24,11 @@ public class ItemManager {
             // First, we split the ';' to get the head value
             String[] split = item.getMaterial().split(";");
             // Get the head value
-            String headValue = Utils.tryParsePAPI(split[1], target);
+            String headValue = Utils.tryParsePAPI(split[1], player, target);
             // Now build the item using ItemBuilder
             builder = new ItemBuilder(XMaterial.PLAYER_HEAD.parseItem())
-                    .name(Utils.tryParsePAPI(item.getName(), target))
-                    .lore(Utils.tryParsePAPI(item.getLore(), target))
+                    .name(Utils.tryParsePAPI(item.getName(), player, target))
+                    .lore(Utils.tryParsePAPI(item.getLore(), player, target))
                     .amount(item.getAmount() <= 0 ? 1 : item.getAmount())
                     .skull(headValue);
         } else {
@@ -42,8 +42,8 @@ public class ItemManager {
             }
             // Finally create the item stack using the item builder
             builder = new ItemBuilder(optionalMaterial.get().parseItem())
-                    .name(Utils.tryParsePAPI(item.getName(), target))
-                    .lore(Utils.tryParsePAPI(item.getLore(), target))
+                    .name(Utils.tryParsePAPI(item.getName(), player, target))
+                    .lore(Utils.tryParsePAPI(item.getLore(), player, target))
                     .amount(item.getAmount() <= 0 ? 1 : item.getAmount());
         }
         // Add hide attributes item flag if it's enabled
@@ -55,25 +55,36 @@ public class ItemManager {
         return builder.build();
     }
 
-    public static ItemStack createGUIItem(GUIItem item, Player target){
+    public static ItemStack createGUIItem(GUIItem item, Player player, Player target){
         if(item.getType() == null)
-            return ItemManager.createItem(item, target);
+            return ItemManager.createItem(item, player, target);
+
+        if(item.getType().contains(";")){
+            String[] split = item.getType().split(";");
+            String identifier = split[0];
+            // Inventory slot item
+            if(identifier.equalsIgnoreCase("SLOTS")){
+                int slot = Integer.parseInt(split[1]);
+                ItemStack stack = target.getInventory().getItem(slot);
+                return stack == null ? ItemManager.createItem(item, player, target) : stack;
+            }
+        }
 
         switch(item.getType()){
             case "HELMET":
-                return createArmorItem(item, target, target.getInventory().getHelmet());
+                return createArmorItem(item, player, target, target.getInventory().getHelmet());
             case "CHESTPLATE":
-                return createArmorItem(item, target, target.getInventory().getChestplate());
-            case "LEGGINGS:":
-                return createArmorItem(item, target, target.getInventory().getLeggings());
+                return createArmorItem(item, player, target, target.getInventory().getChestplate());
+            case "LEGGINGS":
+                return createArmorItem(item, player, target, target.getInventory().getLeggings());
             case "BOOTS":
-                return createArmorItem(item, target, target.getInventory().getBoots());
+                return createArmorItem(item, player, target, target.getInventory().getBoots());
             case "MAIN_HAND":
-                return createArmorItem(item, target, target.getItemInHand());
+                return createArmorItem(item, player, target, target.getItemInHand());
             case "OFF_HAND":
-                return createArmorItem(item, target, target.getInventory().getItemInOffHand());
+                return createArmorItem(item, player, target, target.getInventory().getItemInOffHand());
             default:
-                return ItemManager.createItem(item, target);
+                return ItemManager.createItem(item, player, target);
         }
     }
 
@@ -95,14 +106,14 @@ public class ItemManager {
             // Get the item stack from the slot
             ItemStack slotStack = inventory.getInventory().getItem(i);
             // Skip if the slot is not null and the type is not material AIR
-            if(slotStack != null || slotStack.getType() != Material.AIR) continue;
+            if(slotStack != null) continue;
             // If all going well, we set the slot to the fillter item stack
             inventory.setItem(i, finalStack);
         }
     }
 
-    private static ItemStack createArmorItem(GUIItem item, Player target, ItemStack stack){
-        if(stack == null || stack.getType() == Material.AIR) return createItem(item, target);
+    private static ItemStack createArmorItem(GUIItem item, Player player, Player target, ItemStack stack){
+        if(stack == null || stack.getType() == Material.AIR) return createItem(item, player, target);
         return stack;
     }
 

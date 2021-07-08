@@ -66,6 +66,8 @@ public class CustomGUIManager {
             List<GUIItem> guiItems = new ArrayList<>();
             // Get the inventory title
             String title = config.getString("title");
+            // Get the final title, null-safe
+            String finalTitle = title == null ? "Inventory" : title;
             // Get the inventory size
             int size = config.getInt("size");
             // Now, we load the items - first loop through all items
@@ -93,7 +95,7 @@ public class CustomGUIManager {
                 guiItems.add(guiItem);
             }
             // After items are loaded, now we create the CustomGUI object
-            CustomGUI customGUI = new CustomGUI(fileName, title, size, config, guiItems);
+            CustomGUI customGUI = new CustomGUI(fileName, finalTitle, size, config, guiItems);
             // Now we store the custom gui onto the list
             this.guiList.add(customGUI);
         }

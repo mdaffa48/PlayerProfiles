@@ -26,10 +26,13 @@ public class OpenGUICommand extends SubCommand {
     @Override
     public @NotNull List<String> parseTabCompletion(PlayerProfiles plugin, CommandSender sender, String[] args) {
         if(args.length == 2){
-            return plugin.getCustomGUIManager().getListName();
+            return Common.getOnlinePlayersByName();
         }
         if(args.length == 3){
             return Common.getOnlinePlayersByName();
+        }
+        if(args.length == 4){
+            return plugin.getCustomGUIManager().getListName();
         }
         return new ArrayList<>();
     }
