@@ -5,11 +5,11 @@ import me.aglerr.playerprofiles.ConfigValue;
 import me.aglerr.playerprofiles.PlayerProfiles;
 import me.aglerr.playerprofiles.hooks.combatlogx.HCombatLogX;
 import me.aglerr.playerprofiles.hooks.deluxecombat.HDeluxeCombat;
-import me.aglerr.playerprofiles.hooks.worldguard.WorldGuardWrapper;
 import me.aglerr.playerprofiles.inventory.InventoryManager;
 import me.aglerr.playerprofiles.manager.DependencyManager;
 import me.aglerr.playerprofiles.manager.profile.ProfileManager;
 import me.aglerr.playerprofiles.utils.Utils;
+import me.aglerr.worldguardwrapper.wrapper.WorldGuardWrapper;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -95,14 +95,14 @@ public class PlayerInteract implements Listener {
         if(DependencyManager.WORLD_GUARD){
             // First, we check for the player location, if the region is listed on the disabled regions
             // we stopped the code
-            for(String region : WorldGuardWrapper.getRegions(player.getLocation())){
+            for(String region : WorldGuardWrapper.getInstance().getRegionFinder().getRegions(player.getLocation())){
                 if(ConfigValue.DISABLED_REGIONS.contains(region))
                     player.sendMessage(Common.color(ConfigValue.PLAYER_DISABLED_REGIONS
                             .replace("{prefix}", ConfigValue.PREFIX)));
                     return;
             }
             // Now, we check for the target location
-            for(String region : WorldGuardWrapper.getRegions(target.getLocation())){
+            for(String region : WorldGuardWrapper.getInstance().getRegionFinder().getRegions(target.getLocation())){
                 if(ConfigValue.DISABLED_REGIONS.contains(region))
                     player.sendMessage(Common.color(ConfigValue.TARGET_DISABLED_REGIONS
                             .replace("{prefix}", ConfigValue.PREFIX)));

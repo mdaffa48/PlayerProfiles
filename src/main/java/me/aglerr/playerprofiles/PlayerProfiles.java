@@ -13,10 +13,13 @@ import me.aglerr.playerprofiles.inventory.InventoryManager;
 import me.aglerr.playerprofiles.manager.DependencyManager;
 import me.aglerr.playerprofiles.manager.customgui.CustomGUIManager;
 import me.aglerr.playerprofiles.manager.profile.ProfileManager;
+import me.aglerr.playerprofiles.metrics.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class PlayerProfiles extends JavaPlugin {
+
+    private static final int BSTATS_ID = 7049;
 
     public static boolean HEX_AVAILABLE;
     private static PlayerProfiles instance;
@@ -51,6 +54,8 @@ public class PlayerProfiles extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerInteract(this), this);
         // Register all commands
         registerCommands();
+        // Add bstats metrics
+        new Metrics(this, BSTATS_ID);
     }
 
     @Override

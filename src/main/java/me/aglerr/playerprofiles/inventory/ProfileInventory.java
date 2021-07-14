@@ -72,6 +72,11 @@ public class ProfileInventory extends LazyInventory {
     }
 
     private void checkDistance(Player player, Player target){
+        // If the target is offline, just close the inventory
+        if(target == null){
+            // Close the inventory
+            player.closeInventory();
+        }
         // Get the distance between the player and the target
         double distance = player.getLocation().distance(target.getLocation());
         // Check if the distance is greater than the configured maximum distance

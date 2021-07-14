@@ -1,5 +1,6 @@
 package me.aglerr.playerprofiles.utils;
 
+import de.themoep.minedown.MineDown;
 import me.aglerr.lazylibs.libs.Common;
 import me.aglerr.lazylibs.libs.XSound;
 import me.aglerr.playerprofiles.PlayerProfiles;
@@ -7,6 +8,7 @@ import me.aglerr.playerprofiles.configs.ConfigManager;
 import me.aglerr.playerprofiles.manager.DependencyManager;
 import me.aglerr.playerprofiles.manager.profile.ProfileManager;
 import me.clip.placeholderapi.PlaceholderAPI;
+import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -27,9 +29,21 @@ public class Utils {
                 Bukkit.getVersion().contains("1.17");
     }
 
+    public static String hex(String message){
+        if(!PlayerProfiles.HEX_AVAILABLE) return message;
+        return BaseComponent.toLegacyText(MineDown.parse(message));
+    }
+
+    public static List<String> hex(List<String> message){
+        if(!PlayerProfiles.HEX_AVAILABLE) return message;
+        List<String> messages = new ArrayList<>();
+        message.forEach(m -> messages.add(hex(m)));
+        return messages;
+    }
+
     public static String tryParsePAPI(@NotNull String message, Player player, Player target){
         // Get the final message with hex
-        String hexMessage = PlayerProfiles.HEX_AVAILABLE ? Common.hex(message) : message;
+        String hexMessage = PlayerProfiles.HEX_AVAILABLE ? hex(message) : Common.color(message);
         // Get the value with placeholder api support
         String papiMessage = DependencyManager.PLACEHOLDER_API ? PlaceholderAPI.setPlaceholders(target, hexMessage) : hexMessage;
         // Get the profile manager
@@ -42,8 +56,8 @@ public class Utils {
         return papiMessage
                 .replace("{player}", player.getName())
                 .replace("{target}", target.getName())
-                .replace("{player-status}", playerStatus)
-                .replace("{target-status}", targetStatus)
+                .replace("{player_status}", playerStatus)
+                .replace("{target_status}", targetStatus)
                 .replace("{player_health}", player.getHealth() + "")
                 .replace("{target_health}", target.getHealth() + "")
                 .replace("{player_exp}", player.getExp() + "")

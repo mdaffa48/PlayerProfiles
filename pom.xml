@@ -22,6 +22,14 @@
                             <pattern>me.aglerr.lazylibs</pattern>
                             <shadedPattern>me.aglerr.playerprofiles.utils</shadedPattern>
                         </relocation>
+                        <relocation>
+                            <pattern>me.aglerr.worldguardwrapper</pattern>
+                            <shadedPattern>me.aglerr.playerprofiles.hooks</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>de.themoep.minedown</pattern>
+                            <shadedPattern>me.aglerr.playerprofiles.utils</shadedPattern>
+                        </relocation>
                     </relocations>
                 </configuration>
                 <executions>
@@ -58,12 +66,12 @@
             <url>https://maven.enginehub.org/repo/</url>
         </repository>
         <repository>
-            <id>enginehub-maven</id>
-            <url>https://maven.enginehub.org/repo/</url>
-        </repository>
-        <repository>
             <id>sirblobman-public</id>
             <url>https://nexus.sirblobman.xyz/repository/public/</url>
+        </repository>
+        <repository>
+            <id>minebench-repo</id>
+            <url>https://repo.minebench.de/</url>
         </repository>
     </repositories>
 
@@ -99,24 +107,16 @@
             <scope>system</scope>
             <systemPath>${project.basedir}/deps/DeluxeCombatAPI.jar</systemPath>
         </dependency>
-
         <dependency>
-            <groupId>com.sk89q.worldguard</groupId>
-            <artifactId>worldguard-legacy</artifactId>
-            <version>6.2</version>
-            <scope>provided</scope>
+            <groupId>me.aglerr.worldguardwrapper</groupId>
+            <artifactId>worldguardwrapper-library</artifactId>
+            <version>1.0</version>
         </dependency>
         <dependency>
-            <groupId>com.sk89q.worldguard</groupId>
-            <artifactId>worldguard-core</artifactId>
-            <version>7.0.0-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.sk89q.worldedit</groupId>
-            <artifactId>worldedit-bukkit</artifactId>
-            <version>7.2.0-SNAPSHOT</version>
-            <scope>provided</scope>
+            <groupId>de.themoep</groupId>
+            <artifactId>minedown</artifactId>
+            <version>1.7.1-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 

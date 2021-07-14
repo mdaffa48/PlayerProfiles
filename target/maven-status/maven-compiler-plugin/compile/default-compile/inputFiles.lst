@@ -14,6 +14,7 @@ C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\com
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\hooks\worldguard\IRegionFinder.java
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\commands\subcommands\ListGUICommand.java
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\manager\DependencyManager.java
+C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\commands\subcommands\OpenProfileCommand.java
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\commands\LockCommand.java
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\inventory\InventoryManager.java
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\commands\abstraction\SubCommand.java
@@ -27,4 +28,5 @@ C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\hoo
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\hooks\worldguard\WorldGuard7.java
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\commands\MainCommand.java
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\commands\UnlockCommand.java
+C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\metrics\Metrics.java
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\commands\subcommands\OpenGUICommand.java

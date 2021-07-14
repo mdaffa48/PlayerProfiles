@@ -81,8 +81,12 @@ public class ItemManager {
                 return createArmorItem(item, player, target, target.getInventory().getBoots());
             case "MAIN_HAND":
                 return createArmorItem(item, player, target, target.getItemInHand());
-            case "OFF_HAND":
-                return createArmorItem(item, player, target, target.getInventory().getItemInOffHand());
+            case "OFF_HAND":{
+                if(Common.hasOffhand()){
+                    return createArmorItem(item, player, target, target.getInventory().getItemInOffHand());
+                }
+                return new ItemStack(Material.AIR);
+            }
             default:
                 return ItemManager.createItem(item, player, target);
         }
@@ -98,8 +102,8 @@ public class ItemManager {
         ItemStack stack = optional.get().parseItem();
         // Item builder boiss.
         ItemStack finalStack = new ItemBuilder(stack)
-                .name(Common.hex(config.getString("fillItems.name")))
-                .lore(Common.hex(config.getStringList("fillItems.lore")))
+                .name(Utils.hex(config.getString("fillItems.name")))
+                .lore(Utils.hex(config.getStringList("fillItems.lore")))
                 .build();
         // Loop through all inventory slots
         for (int i = 0; i < inventory.getInventory().getSize(); i++) {
