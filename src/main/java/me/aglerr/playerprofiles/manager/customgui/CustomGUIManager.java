@@ -7,11 +7,13 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class CustomGUIManager {
 
-    private final List<CustomGUI> guiList = new ArrayList<>();
+    private final Map<String, CustomGUI> guiMap = new HashMap<>();
 
     private final PlayerProfiles plugin;
     public CustomGUIManager(PlayerProfiles plugin){
@@ -19,18 +21,15 @@ public class CustomGUIManager {
     }
 
     public CustomGUI getByName(String name){
-        return this.guiList.stream().filter(gui -> gui.getFileName().equalsIgnoreCase(name))
-                .findFirst().orElse(null);
+        return guiMap.get(name);
     }
 
     public List<String> getListName(){
-        List<String> guiNames = new ArrayList<>();
-        this.guiList.forEach(gui -> guiNames.add(gui.getFileName()));
-        return guiNames;
+        return new ArrayList<>(guiMap.keySet());
     }
 
     public void clearCustomGUI(){
-        this.guiList.clear();
+        guiMap.clear();
     }
 
     public void reloadCustomGUI(){
@@ -97,7 +96,7 @@ public class CustomGUIManager {
             // After items are loaded, now we create the CustomGUI object
             CustomGUI customGUI = new CustomGUI(fileName, finalTitle, size, config, guiItems);
             // Now we store the custom gui onto the list
-            this.guiList.add(customGUI);
+            this.guiMap.put(fileName, customGUI);
         }
         // That's it
     }

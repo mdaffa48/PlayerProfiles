@@ -38,15 +38,18 @@ public class PlayerInteract implements Listener {
         // We check if the server is 1.9+, means they have off hand
         // This event will be fired twice for both main hand and off hand
         // So we want to stop the code if the interact hand is an off hand
-        if(Common.hasOffhand()){
-            if(event.getHand() == EquipmentSlot.OFF_HAND)
-                return;
+        if(Common.hasOffhand() && event.getHand() == EquipmentSlot.OFF_HAND){
+            return;
         }
         // Check the shift click option, basically this option is to define whether
         // should we only allow opening profile with shift click or not
-        if(ConfigValue.MUST_SHIFT_CLICK){
-            if(!player.isSneaking())
-                return;
+        if(ConfigValue.MUST_SHIFT_CLICK && !player.isSneaking()){
+            return;
+        }
+        // Check for the shift click option
+        // If the shift click is disabled and player is sneaking, return the code
+        if(!ConfigValue.MUST_SHIFT_CLICK && player.isSneaking()){
+            return;
         }
         // Now, we get the right clicked entity as Player
         Player target = (Player) event.getRightClicked();
@@ -70,8 +73,9 @@ public class PlayerInteract implements Listener {
             // Get the time left
             long timeLeft = this.getCooldownTimeLeft(player);
             // We remove the player from the map if the time left is equals to below 0
-            if(timeLeft <= 0)
+            if(timeLeft <= 0){
                 mapCooldown.remove(player);
+            }
             // And if the time left is greater than 0, we stop the code here
             if(timeLeft > 0){
                 // Send player message
@@ -96,17 +100,19 @@ public class PlayerInteract implements Listener {
             // First, we check for the player location, if the region is listed on the disabled regions
             // we stopped the code
             for(String region : WorldGuardWrapper.getInstance().getRegionFinder().getRegions(player.getLocation())){
-                if(ConfigValue.DISABLED_REGIONS.contains(region))
+                if(ConfigValue.DISABLED_REGIONS.contains(region)){
                     player.sendMessage(Common.color(ConfigValue.PLAYER_DISABLED_REGIONS
                             .replace("{prefix}", ConfigValue.PREFIX)));
                     return;
+                }
             }
             // Now, we check for the target location
             for(String region : WorldGuardWrapper.getInstance().getRegionFinder().getRegions(target.getLocation())){
-                if(ConfigValue.DISABLED_REGIONS.contains(region))
+                if(ConfigValue.DISABLED_REGIONS.contains(region)){
                     player.sendMessage(Common.color(ConfigValue.TARGET_DISABLED_REGIONS
                             .replace("{prefix}", ConfigValue.PREFIX)));
                     return;
+                }
             }
         }
         // Now we check for the combat part, this feature is to prevent player from
@@ -115,18 +121,20 @@ public class PlayerInteract implements Listener {
             // Check if CombatLogX is enabled
             if(DependencyManager.COMBAT_LOG_X){
                 // Check if the player is in combat, if true we return the code
-                if(HCombatLogX.isInCombat(player))
+                if(HCombatLogX.isInCombat(player)){
                     player.sendMessage(Common.color(ConfigValue.DISABLE_IN_COMBAT_MESSAGE
                             .replace("{prefix}", ConfigValue.PREFIX)));
                     return;
+                }
             }
             // Check if DeluxeCombat is enabled
             if(DependencyManager.DELUXE_COMBAT){
                 // Check if the player is in combat, if true we return the code
-                if(HDeluxeCombat.isInCombat(player))
+                if(HDeluxeCombat.isInCombat(player)){
                     player.sendMessage(Common.color(ConfigValue.DISABLE_IN_COMBAT_MESSAGE
                             .replace("{prefix}", ConfigValue.PREFIX)));
                     return;
+                }
             }
         }
         // Now this feature is a interact cooldown message, that means player cannot

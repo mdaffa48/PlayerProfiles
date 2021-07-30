@@ -54,12 +54,14 @@ public class ClickManager {
                 .replace("{target}", target.getName());
         // Check if the tag is CONSOLE
         if(tag.equalsIgnoreCase("[CONSOLE] ")){
+            finalTask = ChatColor.stripColor(finalTask);
             // Execute a command in console
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), finalTask);
             return;
         }
         // Check if the tag is PLAYER
         if(tag.equalsIgnoreCase("[PLAYER] ")){
+            finalTask = ChatColor.stripColor(finalTask);
             // Make the player perform a command
             player.performCommand(finalTask);
             return;
@@ -72,6 +74,7 @@ public class ClickManager {
         }
         // Check if the tag is OPENGUIMENU
         if(tag.equalsIgnoreCase("[OPENGUIMENU] ")){
+            finalTask = ChatColor.stripColor(finalTask);
             // Get the custom gui manager
             CustomGUIManager customGUIManager = PlayerProfiles.getInstance().getCustomGUIManager();
             // Get the custom gui from the task

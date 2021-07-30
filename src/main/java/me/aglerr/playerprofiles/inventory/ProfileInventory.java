@@ -76,6 +76,20 @@ public class ProfileInventory extends LazyInventory {
         if(target == null){
             // Close the inventory
             player.closeInventory();
+            // Send a message to the player
+            player.sendMessage(Common.color(ConfigValue.DISTANCE_TOO_FAR
+                    .replace("{prefix}", ConfigValue.PREFIX))
+                    .replace("{player}", target.getName()));
+            return;
+        }
+        if(!player.getWorld().equals(target.getWorld())){
+            // Close the inventory
+            player.closeInventory();
+            // Send a message to the player
+            player.sendMessage(Common.color(ConfigValue.DISTANCE_TOO_FAR
+                    .replace("{prefix}", ConfigValue.PREFIX))
+                    .replace("{player}", target.getName()));
+            return;
         }
         // Get the distance between the player and the target
         double distance = player.getLocation().distance(target.getLocation());
