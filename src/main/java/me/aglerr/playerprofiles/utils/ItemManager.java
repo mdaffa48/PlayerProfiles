@@ -101,10 +101,15 @@ public class ItemManager {
         // Get the ItemStack if the XMaterial is present
         ItemStack stack = optional.get().parseItem();
         // Item builder boiss.
-        ItemStack finalStack = new ItemBuilder(stack)
+        ItemBuilder builder = new ItemBuilder(stack)
                 .name(Utils.hex(config.getString("fillItems.name")))
-                .lore(Utils.hex(config.getStringList("fillItems.lore")))
-                .build();
+                .lore(Utils.hex(config.getStringList("fillItems.lore")));
+        // If the server has custom model data, apply the custom model data
+        if(Utils.hasCustomModelData()){
+            builder.customModelData(config.getInt("fillItems.customModelData"));
+        }
+        // Get the final item stack
+        ItemStack finalStack = builder.build();
         // Loop through all inventory slots
         for (int i = 0; i < inventory.getInventory().getSize(); i++) {
             // Get the item stack from the slot
