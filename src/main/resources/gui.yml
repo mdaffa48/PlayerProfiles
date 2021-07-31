@@ -123,7 +123,7 @@ items:
   exampleOffhand:
     type: OFF_HAND
     material: RED_STAINED_GLASS_PANE
-    name: "&eHelmet"
+    name: "&eOff Hand"
     slots: [ 29 ]
     glowing: true
     hideAttributes: false
