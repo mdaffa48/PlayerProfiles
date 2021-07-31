@@ -7,7 +7,7 @@
     <groupId>me.aglerr</groupId>
     <artifactId>PlayerProfiles</artifactId>
     <packaging>jar</packaging>
-    <version>6.0.1</version>
+    <version>6.0.2</version>
 
     <build>
         <defaultGoal>clean package</defaultGoal>
