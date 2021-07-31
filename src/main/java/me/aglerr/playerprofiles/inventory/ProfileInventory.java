@@ -49,17 +49,23 @@ public class ProfileInventory extends LazyInventory {
             // Check if the item use permission to see
             if(item.isUsePermission()){
                 // If the player doesn't have the permission, don't show it
-                if(!player.hasPermission(item.getPermission())) return;
+                if(!player.hasPermission(item.getPermission())) {
+                    return;
+                }
             }
             // Check if the item is set to only visitor
             if(item.isOnlyVisitor()){
                 // If the player and the target is the same, don't show the item
-                if(player.equals(target)) return;
+                if(player.equals(target)) {
+                    return;
+                }
             }
             // Check if the item is set to only owner
             if(item.isOnlyOwner()){
                 // If the player and the target is not the same, don't show the item
-                if(!player.equals(target)) return;
+                if(!player.equals(target)) {
+                    return;
+                }
             }
             // Now, set the item to the inventory
             this.setItems(item.getSlots(), stack, event -> {
