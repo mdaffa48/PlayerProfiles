@@ -1,12 +1,11 @@
 package me.aglerr.playerprofiles.commands;
 
-import me.aglerr.lazylibs.libs.Common;
+import me.aglerr.mclibs.libs.Common;
 import me.aglerr.playerprofiles.ConfigValue;
 import me.aglerr.playerprofiles.PlayerProfiles;
 import me.aglerr.playerprofiles.configs.ConfigManager;
 import me.aglerr.playerprofiles.inventory.InventoryManager;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -44,7 +43,7 @@ public class ProfileCommand implements CommandExecutor, TabCompleter {
 
             bukkitCommandMap.setAccessible(false);
         } catch (Exception ex){
-            Common.log(ChatColor.RED, "Failed to register /profile command");
+            Common.log("&cFailed to register /profile command");
             ex.printStackTrace();
         }
     }
@@ -53,7 +52,7 @@ public class ProfileCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
         // If the command sender is not player, return the code
         if(!(sender instanceof Player)){
-            Common.log(ChatColor.RED, "Only players can execute /profile command");
+            Common.log("&cOnly players can execute /profile command");
             return true;
         }
         // Get the player object from the sender
@@ -103,7 +102,7 @@ public class ProfileCommand implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
         if(args.length == 1 && sender.hasPermission("playerprofiles.profile.others")){
-            return Common.getOnlinePlayersByName();
+            return null;
         }
         return new ArrayList<>();
     }

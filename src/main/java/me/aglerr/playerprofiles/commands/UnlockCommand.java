@@ -1,11 +1,10 @@
 package me.aglerr.playerprofiles.commands;
 
-import me.aglerr.lazylibs.libs.Common;
+import me.aglerr.mclibs.libs.Common;
 import me.aglerr.playerprofiles.ConfigValue;
 import me.aglerr.playerprofiles.PlayerProfiles;
 import me.aglerr.playerprofiles.configs.ConfigManager;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -43,7 +42,7 @@ public class UnlockCommand implements CommandExecutor, TabCompleter {
 
             bukkitCommandMap.setAccessible(false);
         } catch (Exception ex){
-            Common.log(ChatColor.RED, "Failed to register /unlockprofile command");
+            Common.log("&cFailed to register /unlockprofile command");
             ex.printStackTrace();
         }
     }
@@ -107,7 +106,7 @@ public class UnlockCommand implements CommandExecutor, TabCompleter {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
         if(args.length == 1 && sender.hasPermission("playerprofiles.unlockprofile.others")){
-            return Common.getOnlinePlayersByName();
+            return null;
         }
         return new ArrayList<>();
     }

@@ -1,6 +1,6 @@
 package me.aglerr.playerprofiles.commands.subcommands;
 
-import me.aglerr.lazylibs.libs.Common;
+import me.aglerr.mclibs.libs.Common;
 import me.aglerr.playerprofiles.ConfigValue;
 import me.aglerr.playerprofiles.PlayerProfiles;
 import me.aglerr.playerprofiles.commands.abstraction.SubCommand;

@@ -1,9 +1,9 @@
 package me.aglerr.playerprofiles.utils;
 
-import me.aglerr.lazylibs.inventory.LazyInventory;
-import me.aglerr.lazylibs.libs.Common;
-import me.aglerr.lazylibs.libs.ItemBuilder;
-import me.aglerr.lazylibs.libs.XMaterial;
+import me.aglerr.mclibs.inventory.SimpleInventory;
+import me.aglerr.mclibs.libs.Common;
+import me.aglerr.mclibs.libs.ItemBuilder;
+import me.aglerr.mclibs.xseries.XMaterial;
 import me.aglerr.playerprofiles.inventory.items.GUIItem;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -17,20 +17,36 @@ import java.util.Optional;
 public class ItemManager {
 
     public static ItemStack createItem(GUIItem item, Player player, Player target){
-        ItemBuilder builder;
+        ItemBuilder builder = null;
         // Check if the item material contains ';'
         if(item.getMaterial().contains(";")){
             // That means this item is a base64 head item
             // First, we split the ';' to get the head value
             String[] split = item.getMaterial().split(";");
-            // Get the head value
-            String headValue = Utils.tryParsePAPI(split[1], player, target);
-            // Now build the item using ItemBuilder
-            builder = new ItemBuilder(XMaterial.PLAYER_HEAD.parseItem())
-                    .name(Utils.tryParsePAPI(item.getName(), player, target))
-                    .lore(Utils.tryParsePAPI(item.getLore(), player, target))
-                    .amount(item.getAmount() <= 0 ? 1 : item.getAmount())
-                    .skull(headValue);
+            String identifier = split[0];
+            // If the identifier is SLOTS, take the player inventory slot as the item
+            if(identifier.equalsIgnoreCase("SLOTS") || identifier.equalsIgnoreCase("SLOT")){
+                int slot = Integer.parseInt(split[1]);
+                ItemStack stack = target.getInventory().getItem(slot);
+                if(stack == null){
+                    return new ItemStack(Material.AIR);
+                } else {
+                    builder = new ItemBuilder(stack);
+                }
+            }
+            // Head Item
+            if(identifier.equalsIgnoreCase("HEAD") || identifier.equalsIgnoreCase("HEADS")){
+                // Get the head value
+                String headValue = split[1]
+                        .replace("{player}", player.getName())
+                        .replace("{target}", target.getName());
+                // And now build the ItemStack using ItemBuilder
+                builder = new ItemBuilder(XMaterial.PLAYER_HEAD.parseItem())
+                        .name(Utils.tryParsePAPI(item.getName(), player, target))
+                        .lore(Utils.tryParsePAPI(item.getLore(), player, target))
+                        .amount(item.getAmount() <= 0 ? 1 : item.getAmount())
+                        .skull(headValue);
+            }
         } else {
             // If the item doesn't contains ';', that means the item is not a head
             // First of all, we check if the item is exist or valid
@@ -66,7 +82,20 @@ public class ItemManager {
             if(identifier.equalsIgnoreCase("SLOTS")){
                 int slot = Integer.parseInt(split[1]);
                 ItemStack stack = target.getInventory().getItem(slot);
-                return stack == null ? ItemManager.createItem(item, player, target) : stack;
+                return stack == null ? new ItemStack(Material.AIR) : stack;
+            }
+            // Head Item
+            if(identifier.equalsIgnoreCase("HEAD") || identifier.equalsIgnoreCase("HEADS")){
+                String headValue = split[1]
+                        .replace("{player}", player.getName())
+                        .replace("{target}", target.getName());
+                ItemStack stack = new ItemBuilder(XMaterial.PLAYER_HEAD.parseItem())
+                        .name(Utils.tryParsePAPI(item.getName(), player, target))
+                        .lore(Utils.tryParsePAPI(item.getLore(), player, target))
+                        .amount(item.getAmount() <= 0 ? 1 : item.getAmount())
+                        .skull(headValue)
+                        .build();
+                return stack;
             }
         }
 
@@ -92,7 +121,7 @@ public class ItemManager {
         }
     }
 
-    public static void fillItem(LazyInventory inventory, FileConfiguration config){
+    public static void fillItem(SimpleInventory inventory, FileConfiguration config){
         if(!config.getBoolean("fillItems.enabled")) return;
         // Get the Optional XMaterial
         Optional<XMaterial> optional = XMaterial.matchXMaterial(config.getString("fillItems.material"));
@@ -102,8 +131,8 @@ public class ItemManager {
         ItemStack stack = optional.get().parseItem();
         // Item builder boiss.
         ItemBuilder builder = new ItemBuilder(stack)
-                .name(Utils.hex(config.getString("fillItems.name")))
-                .lore(Utils.hex(config.getStringList("fillItems.lore")));
+                .name(Common.color(config.getString("fillItems.name")))
+                .lore(Common.color(config.getStringList("fillItems.lore")));
         // If the server has custom model data, apply the custom model data
         if(Utils.hasCustomModelData()){
             builder.customModelData(config.getInt("fillItems.customModelData"));

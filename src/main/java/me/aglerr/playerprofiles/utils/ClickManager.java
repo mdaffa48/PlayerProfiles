@@ -1,6 +1,6 @@
 package me.aglerr.playerprofiles.utils;
 
-import me.aglerr.lazylibs.libs.Common;
+import me.aglerr.mclibs.libs.Common;
 import me.aglerr.playerprofiles.PlayerProfiles;
 import me.aglerr.playerprofiles.inventory.items.GUIItem;
 import me.aglerr.playerprofiles.manager.customgui.CustomGUI;
@@ -54,14 +54,12 @@ public class ClickManager {
                 .replace("{target}", target.getName());
         // Check if the tag is CONSOLE
         if(tag.equalsIgnoreCase("[CONSOLE] ")){
-            finalTask = ChatColor.stripColor(finalTask);
             // Execute a command in console
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), finalTask);
             return;
         }
         // Check if the tag is PLAYER
         if(tag.equalsIgnoreCase("[PLAYER] ")){
-            finalTask = ChatColor.stripColor(finalTask);
             // Make the player perform a command
             player.performCommand(finalTask);
             return;
@@ -81,7 +79,7 @@ public class ClickManager {
             CustomGUI customGUI = customGUIManager.getByName(finalTask);
             // Return if the custom gui is invalid
             if(customGUI == null){
-                Common.log(ChatColor.RED, player.getName() + " trying to open an invalid GUI! (" + finalTask + ")");
+                Common.log("&c" + player.getName() + " trying to open an invalid GUI! (" + finalTask + ")");
                 return;
             }
             // If the custom gui is valid, open the inventory to the player

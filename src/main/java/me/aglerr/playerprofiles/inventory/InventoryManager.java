@@ -1,6 +1,6 @@
 package me.aglerr.playerprofiles.inventory;
 
-import me.aglerr.lazylibs.inventory.LazyInventory;
+import me.aglerr.mclibs.inventory.SimpleInventory;
 import me.aglerr.playerprofiles.PlayerProfiles;
 import me.aglerr.playerprofiles.configs.ConfigManager;
 import me.aglerr.playerprofiles.inventory.items.ItemsLoader;
@@ -35,14 +35,14 @@ public class InventoryManager {
             String title = config.getString("title");
             int size = config.getInt("size");
 
-            LazyInventory inventory = new ProfileInventory(itemsLoader.getMainMenuItems(), player, target, size, title);
+            SimpleInventory inventory = new ProfileInventory(itemsLoader.getMainMenuItems(), player, target, size, title);
             inventory.open(player);
             return;
         }
         // Code logic if the custom gui isn't null
         // And the CustomGUI is @NotNull because it has been checked before calling this method
         // Create the LazyInventory object
-        LazyInventory inventory = new ProfileInventory(customGUI.getItems(), player, target, customGUI.getSize(), customGUI.getTitle());
+        SimpleInventory inventory = new ProfileInventory(customGUI.getItems(), player, target, customGUI.getSize(), customGUI.getTitle());
         // Finally open the inventory for the player
         inventory.open(player);
     }

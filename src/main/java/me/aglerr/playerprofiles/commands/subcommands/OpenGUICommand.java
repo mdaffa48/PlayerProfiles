@@ -1,6 +1,6 @@
 package me.aglerr.playerprofiles.commands.subcommands;
 
-import me.aglerr.lazylibs.libs.Common;
+import me.aglerr.mclibs.libs.Common;
 import me.aglerr.playerprofiles.ConfigValue;
 import me.aglerr.playerprofiles.PlayerProfiles;
 import me.aglerr.playerprofiles.commands.abstraction.SubCommand;
@@ -10,7 +10,6 @@ import me.aglerr.playerprofiles.manager.customgui.CustomGUIManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -24,12 +23,12 @@ public class OpenGUICommand extends SubCommand {
     }
 
     @Override
-    public @NotNull List<String> parseTabCompletion(PlayerProfiles plugin, CommandSender sender, String[] args) {
+    public List<String> parseTabCompletion(PlayerProfiles plugin, CommandSender sender, String[] args) {
         if(args.length == 2){
-            return Common.getOnlinePlayersByName();
+            return null;
         }
         if(args.length == 3){
-            return Common.getOnlinePlayersByName();
+            return null;
         }
         if(args.length == 4){
             return plugin.getCustomGUIManager().getListName();

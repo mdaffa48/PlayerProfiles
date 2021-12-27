@@ -7,7 +7,7 @@
     <groupId>me.aglerr</groupId>
     <artifactId>PlayerProfiles</artifactId>
     <packaging>jar</packaging>
-    <version>6.0.2</version>
+    <version>6.1.0</version>
 
     <build>
         <defaultGoal>clean package</defaultGoal>
@@ -19,16 +19,12 @@
                 <configuration>
                     <relocations>
                         <relocation>
-                            <pattern>me.aglerr.lazylibs</pattern>
-                            <shadedPattern>me.aglerr.playerprofiles.utils</shadedPattern>
+                            <pattern>me.aglerr.mclibs</pattern>
+                            <shadedPattern>me.aglerr.playerprofiles.mclibs</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>me.aglerr.worldguardwrapper</pattern>
                             <shadedPattern>me.aglerr.playerprofiles.hooks</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>de.themoep.minedown</pattern>
-                            <shadedPattern>me.aglerr.playerprofiles.utils</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
@@ -70,8 +66,8 @@
             <url>https://nexus.sirblobman.xyz/repository/public/</url>
         </repository>
         <repository>
-            <id>minebench-repo</id>
-            <url>https://repo.minebench.de/</url>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
         </repository>
     </repositories>
 
@@ -79,7 +75,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>1.17.1-R0.1-SNAPSHOT</version>
+            <version>1.18.1-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -89,10 +85,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>me.aglerr.lazylibs.LazyLibs</groupId>
-            <artifactId>LazyLibs</artifactId>
-            <version>1.0</version>
-            <scope>compile</scope>
+            <groupId>com.github.aglerr</groupId>
+            <artifactId>MCLibs</artifactId>
+            <version>0.1.1</version>
         </dependency>
         <dependency>
             <groupId>com.SirBlobman.combatlogx</groupId>
@@ -111,12 +106,6 @@
             <groupId>me.aglerr.worldguardwrapper</groupId>
             <artifactId>worldguardwrapper-library</artifactId>
             <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>de.themoep</groupId>
-            <artifactId>minedown</artifactId>
-            <version>1.7.1-SNAPSHOT</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 

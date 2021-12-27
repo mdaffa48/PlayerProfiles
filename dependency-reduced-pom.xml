@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>me.aglerr</groupId>
   <artifactId>PlayerProfiles</artifactId>
-  <version>6.0.1</version>
+  <version>6.1.0</version>
   <build>
     <defaultGoal>clean package</defaultGoal>
     <plugins>
@@ -21,16 +21,12 @@
         <configuration>
           <relocations>
             <relocation>
-              <pattern>me.aglerr.lazylibs</pattern>
-              <shadedPattern>me.aglerr.playerprofiles.utils</shadedPattern>
+              <pattern>me.aglerr.mclibs</pattern>
+              <shadedPattern>me.aglerr.playerprofiles.mclibs</shadedPattern>
             </relocation>
             <relocation>
               <pattern>me.aglerr.worldguardwrapper</pattern>
               <shadedPattern>me.aglerr.playerprofiles.hooks</shadedPattern>
-            </relocation>
-            <relocation>
-              <pattern>de.themoep.minedown</pattern>
-              <shadedPattern>me.aglerr.playerprofiles.utils</shadedPattern>
             </relocation>
           </relocations>
         </configuration>
@@ -62,15 +58,15 @@
       <url>https://nexus.sirblobman.xyz/repository/public/</url>
     </repository>
     <repository>
-      <id>minebench-repo</id>
-      <url>https://repo.minebench.de/</url>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
     </repository>
   </repositories>
   <dependencies>
     <dependency>
       <groupId>org.spigotmc</groupId>
       <artifactId>spigot-api</artifactId>
-      <version>1.17.1-R0.1-SNAPSHOT</version>
+      <version>1.18.1-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
     <dependency>

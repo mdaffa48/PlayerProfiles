@@ -1,14 +1,10 @@
 package me.aglerr.playerprofiles.utils;
 
-import de.themoep.minedown.MineDown;
-import me.aglerr.lazylibs.libs.Common;
-import me.aglerr.lazylibs.libs.XSound;
+import me.aglerr.mclibs.libs.Common;
+import me.aglerr.mclibs.xseries.XSound;
 import me.aglerr.playerprofiles.PlayerProfiles;
 import me.aglerr.playerprofiles.configs.ConfigManager;
-import me.aglerr.playerprofiles.manager.DependencyManager;
 import me.aglerr.playerprofiles.manager.profile.ProfileManager;
-import me.clip.placeholderapi.PlaceholderAPI;
-import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -16,9 +12,9 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class Utils {
 
@@ -26,26 +22,11 @@ public class Utils {
         return Bukkit.getVersion().contains("1.14") ||
                 Bukkit.getVersion().contains("1.15") ||
                 Bukkit.getVersion().contains("1.16") ||
-                Bukkit.getVersion().contains("1.17");
-    }
-
-    public static String hex(String message){
-        if(!PlayerProfiles.HEX_AVAILABLE) return message;
-        return BaseComponent.toLegacyText(MineDown.parse(message));
-    }
-
-    public static List<String> hex(List<String> message){
-        if(!PlayerProfiles.HEX_AVAILABLE) return message;
-        List<String> messages = new ArrayList<>();
-        message.forEach(m -> messages.add(hex(m)));
-        return messages;
+                Bukkit.getVersion().contains("1.17") ||
+                Bukkit.getVersion().contains("1.18");
     }
 
     public static String tryParsePAPI(@NotNull String message, Player player, Player target){
-        // Get the final message with hex
-        String hexMessage = PlayerProfiles.HEX_AVAILABLE ? hex(message) : Common.color(message);
-        // Get the value with placeholder api support
-        String papiMessage = DependencyManager.PLACEHOLDER_API ? PlaceholderAPI.setPlaceholders(target, hexMessage) : hexMessage;
         // Get the profile manager
         ProfileManager profileManager = PlayerProfiles.getInstance().getProfileManager();
         // Player profile status
@@ -53,7 +34,7 @@ public class Utils {
         // Target profile status
         String targetStatus = profileManager.isProfileLocked(target) ? "&cLocked" : "&aUnlocked";
         // Finally, return the value with parsed player and target
-        return papiMessage
+        return Common.tryParsePAPI(player, message)
                 .replace("{player}", player.getName())
                 .replace("{target}", target.getName())
                 .replace("{player_status}", playerStatus)
@@ -70,16 +51,8 @@ public class Utils {
                 .replace("{target_world}", target.getWorld().getName());
     }
 
-    public static List<String> tryParsePAPI(@NotNull List<String> message, Player player, Player target){
-        // Create an empty list of string
-        List<String> translated = new ArrayList<>();
-        // Loop through all the messages
-        for(String text : message){
-            // Add the message to the list with translated hex and placeholder api
-            translated.add(tryParsePAPI(text, player, target));
-        }
-        // Finally, return the list
-        return translated;
+    public static List<String> tryParsePAPI(@NotNull List<String> messages, Player player, Player target){
+        return messages.stream().map(message -> tryParsePAPI(message, player, target)).collect(Collectors.toList());
     }
 
     public static void playSound(Player player, String soundPath){

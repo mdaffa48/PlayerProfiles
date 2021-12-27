@@ -1,8 +1,8 @@
 package me.aglerr.playerprofiles.inventory;
 
-import me.aglerr.lazylibs.inventory.LazyInventory;
-import me.aglerr.lazylibs.libs.Common;
-import me.aglerr.lazylibs.libs.Executor;
+import me.aglerr.mclibs.inventory.SimpleInventory;
+import me.aglerr.mclibs.libs.Common;
+import me.aglerr.mclibs.libs.Executor;
 import me.aglerr.playerprofiles.ConfigValue;
 import me.aglerr.playerprofiles.configs.ConfigManager;
 import me.aglerr.playerprofiles.inventory.items.GUIItem;
@@ -15,7 +15,7 @@ import org.bukkit.scheduler.BukkitTask;
 
 import java.util.List;
 
-public class ProfileInventory extends LazyInventory {
+public class ProfileInventory extends SimpleInventory {
 
     public ProfileInventory(List<GUIItem> items, Player player, Player target, int size, String title) {
         super(size, Utils.tryParsePAPI(title, player, target));

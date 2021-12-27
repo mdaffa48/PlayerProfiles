@@ -82,7 +82,7 @@ public class ConfigValue {
 
         NO_PERMISSION = config.getString("messages.noPermission");
         RELOAD = config.getString("messages.reload");
-        INVALID_PLAYER = config.getString("messages.noPermission");
+        INVALID_PLAYER = config.getString("messages.invalidPlayer");
         LOCKED_PROFILE = config.getString("messages.targetProfileLocked");
         LOCK_PROFILE = config.getString("messages.lockProfile");
         LOCK_PROFILE_OTHERS = config.getString("messages.lockProfileOthers");

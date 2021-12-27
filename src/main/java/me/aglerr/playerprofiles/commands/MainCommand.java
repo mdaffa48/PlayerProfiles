@@ -1,6 +1,6 @@
 package me.aglerr.playerprofiles.commands;
 
-import me.aglerr.lazylibs.libs.Common;
+import me.aglerr.mclibs.libs.Common;
 import me.aglerr.playerprofiles.ConfigValue;
 import me.aglerr.playerprofiles.PlayerProfiles;
 import me.aglerr.playerprofiles.commands.abstraction.SubCommand;
@@ -10,13 +10,15 @@ import me.aglerr.playerprofiles.commands.subcommands.OpenProfileCommand;
 import me.aglerr.playerprofiles.commands.subcommands.ReloadCommand;
 import me.aglerr.playerprofiles.configs.ConfigManager;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Field;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MainCommand implements CommandExecutor, TabCompleter {
 
@@ -56,7 +58,7 @@ public class MainCommand implements CommandExecutor, TabCompleter {
 
             bukkitCommandMap.setAccessible(false);
         } catch (Exception ex){
-            Common.log(ChatColor.RED, "Failed to register /playerprofiles command");
+            Common.log("&cFailed to register /playerprofiles command");
             ex.printStackTrace();
         }
     }

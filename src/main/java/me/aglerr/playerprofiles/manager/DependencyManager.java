@@ -1,9 +1,8 @@
 package me.aglerr.playerprofiles.manager;
 
-import me.aglerr.lazylibs.libs.Common;
+import me.aglerr.mclibs.libs.Common;
 import nl.marido.deluxecombat.api.DeluxeCombatAPI;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 
@@ -34,11 +33,11 @@ public class DependencyManager {
             Plugin plugin = pm.getPlugin("WorldGuard");
 
             if(plugin.getDescription().getVersion().startsWith("6"))
-                Common.log(ChatColor.RESET, "Found WorldGuard! Using WorldGuard API version 6");
+                Common.log("&rFound WorldGuard! Using WorldGuard API version 6");
                 WORLD_GUARD_VERSION = 6;
 
             if(plugin.getDescription().getVersion().startsWith("7"))
-                Common.log(ChatColor.RESET, "Found WorldGuard! Using WorldGuard API version 7");
+                Common.log("&rFound WorldGuard! Using WorldGuard API version 7");
                 WORLD_GUARD_VERSION = 7;
         }
 

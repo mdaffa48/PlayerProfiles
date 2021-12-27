@@ -1,6 +1,4 @@
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\ConfigValue.java
-C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\hooks\worldguard\WorldGuard6.java
-C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\events\PlayerInteract.java
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\inventory\items\ItemsLoader.java
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\PlayerProfiles.java
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\hooks\combatlogx\HCombatLogX.java
@@ -11,7 +9,6 @@ C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\man
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\manager\profile\ProfileManager.java
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\utils\ClickManager.java
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\commands\ProfileCommand.java
-C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\hooks\worldguard\IRegionFinder.java
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\commands\subcommands\ListGUICommand.java
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\manager\DependencyManager.java
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\commands\subcommands\OpenProfileCommand.java
@@ -22,10 +19,9 @@ C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\man
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\inventory\items\GUIItem.java
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\manager\customgui\CustomGUI.java
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\inventory\ProfileInventory.java
+C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\listeners\PlayerInteract.java
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\utils\ItemManager.java
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\utils\Utils.java
-C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\hooks\worldguard\WorldGuardWrapper.java
-C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\hooks\worldguard\WorldGuard7.java
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\commands\MainCommand.java
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\commands\UnlockCommand.java
 C:\Daffa\Intellij IDEA\PlayerProfiles\src\main\java\me\aglerr\playerprofiles\metrics\Metrics.java

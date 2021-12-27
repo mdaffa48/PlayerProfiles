@@ -1,6 +1,6 @@
-package me.aglerr.playerprofiles.events;
+package me.aglerr.playerprofiles.listeners;
 
-import me.aglerr.lazylibs.libs.Common;
+import me.aglerr.mclibs.libs.Common;
 import me.aglerr.playerprofiles.ConfigValue;
 import me.aglerr.playerprofiles.PlayerProfiles;
 import me.aglerr.playerprofiles.hooks.combatlogx.HCombatLogX;
@@ -54,9 +54,8 @@ public class PlayerInteract implements Listener {
         // Now, we get the right clicked entity as Player
         Player target = (Player) event.getRightClicked();
         // Now we check for the NPC option, should we open the profile of the NPC?
-        if(ConfigValue.DISABLE_NPC_PROFILE){
-            if(target.hasMetadata("NPC"))
-                return;
+        if(ConfigValue.DISABLE_NPC_PROFILE && target.hasMetadata("NPC")){
+            return;
         }
         // Profile locked feature, basically every player can lock their profile
         // so no one can open their profile. First, we need to get the ProfileManager

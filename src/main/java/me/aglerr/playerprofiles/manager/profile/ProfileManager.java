@@ -1,6 +1,6 @@
 package me.aglerr.playerprofiles.manager.profile;
 
-import me.aglerr.lazylibs.libs.CustomConfig;
+import me.aglerr.mclibs.libs.CustomConfig;
 import me.aglerr.playerprofiles.configs.ConfigManager;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
