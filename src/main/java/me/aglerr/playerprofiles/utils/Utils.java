@@ -10,6 +10,7 @@ import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -19,11 +20,7 @@ import java.util.stream.Collectors;
 public class Utils {
 
     public static boolean hasCustomModelData(){
-        return Bukkit.getVersion().contains("1.14") ||
-                Bukkit.getVersion().contains("1.15") ||
-                Bukkit.getVersion().contains("1.16") ||
-                Bukkit.getVersion().contains("1.17") ||
-                Bukkit.getVersion().contains("1.18");
+        return Integer.parseInt(Bukkit.getVersion().split("\\.")[1]) >= 14;
     }
 
     public static String tryParsePAPI(@NotNull String message, Player player, Player target){

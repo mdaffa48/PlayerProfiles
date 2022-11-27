@@ -9,12 +9,13 @@ import me.aglerr.playerprofiles.inventory.InventoryManager;
 import me.aglerr.playerprofiles.manager.DependencyManager;
 import me.aglerr.playerprofiles.manager.profile.ProfileManager;
 import me.aglerr.playerprofiles.utils.Utils;
-import me.aglerr.worldguardwrapper.wrapper.WorldGuardWrapper;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.bukkit.inventory.EquipmentSlot;
+import org.codemc.worldguardwrapper.WorldGuardWrapper;
+import org.codemc.worldguardwrapper.region.IWrappedRegion;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -98,16 +99,16 @@ public class PlayerInteract implements Listener {
         if(DependencyManager.WORLD_GUARD){
             // First, we check for the player location, if the region is listed on the disabled regions
             // we stopped the code
-            for(String region : WorldGuardWrapper.getInstance().getRegionFinder().getRegions(player.getLocation())){
-                if(ConfigValue.DISABLED_REGIONS.contains(region)){
+            for(IWrappedRegion region : WorldGuardWrapper.getInstance().getRegions(player.getLocation())){
+                if(ConfigValue.DISABLED_REGIONS.contains(region.getId())){
                     player.sendMessage(Common.color(ConfigValue.PLAYER_DISABLED_REGIONS
                             .replace("{prefix}", ConfigValue.PREFIX)));
                     return;
                 }
             }
             // Now, we check for the target location
-            for(String region : WorldGuardWrapper.getInstance().getRegionFinder().getRegions(target.getLocation())){
-                if(ConfigValue.DISABLED_REGIONS.contains(region)){
+            for(IWrappedRegion region : WorldGuardWrapper.getInstance().getRegions(target.getLocation())){
+                if(ConfigValue.DISABLED_REGIONS.contains(region.getId())){
                     player.sendMessage(Common.color(ConfigValue.TARGET_DISABLED_REGIONS
                             .replace("{prefix}", ConfigValue.PREFIX)));
                     return;
