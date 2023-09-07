@@ -23,7 +23,11 @@ public class Utils {
                 Bukkit.getVersion().contains("1.15") ||
                 Bukkit.getVersion().contains("1.16") ||
                 Bukkit.getVersion().contains("1.17") ||
-                Bukkit.getVersion().contains("1.18");
+                Bukkit.getVersion().contains("1.18") ||
+                Bukkit.getVersion().contains("1.19") ||
+                Bukkit.getVersion().contains("1.20") ||
+                Bukkit.getVersion().contains("1.21") ||
+                Bukkit.getVersion().contains("1.22");
     }
 
     public static String tryParsePAPI(@NotNull String message, Player player, Player target){

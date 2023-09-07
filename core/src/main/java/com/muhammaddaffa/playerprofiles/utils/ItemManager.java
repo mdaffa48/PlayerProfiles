@@ -89,13 +89,13 @@ public class ItemManager {
                 String headValue = split[1]
                         .replace("{player}", player.getName())
                         .replace("{target}", target.getName());
-                ItemStack stack = new ItemBuilder(XMaterial.PLAYER_HEAD.parseItem())
+                ItemBuilder builder = new ItemBuilder(XMaterial.PLAYER_HEAD.parseItem())
                         .name(Utils.tryParsePAPI(item.name(), player, target))
                         .lore(Utils.tryParsePAPI(item.lore(), player, target))
                         .amount(Math.max(1, item.amount()))
-                        .skull(headValue)
-                        .build();
-                return stack;
+                        .skull(headValue);
+                if (Utils.hasCustomModelData()) builder.customModelData(item.customModelData());
+                return builder.build();
             }
         }
 
