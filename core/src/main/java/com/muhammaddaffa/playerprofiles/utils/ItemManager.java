@@ -45,6 +45,7 @@ public class ItemManager {
                         .name(Utils.tryParsePAPI(item.name(), player, target))
                         .lore(Utils.tryParsePAPI(item.lore(), player, target))
                         .amount(Math.max(1, item.amount()))
+                        .customModelData(item.customModelData())
                         .skull(headValue);
             }
         } else {
@@ -60,14 +61,13 @@ public class ItemManager {
             builder = new ItemBuilder(optionalMaterial.get().parseItem())
                     .name(Utils.tryParsePAPI(item.name(), player, target))
                     .lore(Utils.tryParsePAPI(item.lore(), player, target))
-                    .amount(Math.max(1, item.amount()));
+                    .amount(Math.max(1, item.amount()))
+                    .customModelData(item.customModelData());
         }
         // Add hide attributes item flag if it's enabled
         if(item.hideAttributes()) builder.flags(ItemFlag.HIDE_ATTRIBUTES);
         // Add random enchant and hide enchant attributes if item set to glowing
         if(item.glowing()) builder.enchant(Enchantment.ARROW_DAMAGE).flags(ItemFlag.HIDE_ENCHANTS);
-        // Check if the server is 1.14+ and try to add custom model data
-        if(Utils.hasCustomModelData()) builder.customModelData(item.customModelData());
         return builder.build();
     }
 
@@ -93,8 +93,8 @@ public class ItemManager {
                         .name(Utils.tryParsePAPI(item.name(), player, target))
                         .lore(Utils.tryParsePAPI(item.lore(), player, target))
                         .amount(Math.max(1, item.amount()))
+                        .customModelData(item.customModelData())
                         .skull(headValue);
-                if (Utils.hasCustomModelData()) builder.customModelData(item.customModelData());
                 return builder.build();
             }
         }
@@ -132,11 +132,8 @@ public class ItemManager {
         // Item builder boiss.
         ItemBuilder builder = new ItemBuilder(stack)
                 .name(Common.color(config.getString("fillItems.name")))
-                .lore(Common.color(config.getStringList("fillItems.lore")));
-        // If the server has custom model data, apply the custom model data
-        if(Utils.hasCustomModelData()){
-            builder.customModelData(config.getInt("fillItems.customModelData"));
-        }
+                .lore(Common.color(config.getStringList("fillItems.lore")))
+                .customModelData(config.getInt("fillItems.customModelData"));
         // Get the final item stack
         ItemStack finalStack = builder.build();
         // Loop through all inventory slots

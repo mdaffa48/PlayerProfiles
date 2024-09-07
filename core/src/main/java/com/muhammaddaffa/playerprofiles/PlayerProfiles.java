@@ -1,9 +1,6 @@
 package com.muhammaddaffa.playerprofiles;
 
-import com.muhammaddaffa.playerprofiles.commands.LockCommand;
-import com.muhammaddaffa.playerprofiles.commands.MainCommand;
-import com.muhammaddaffa.playerprofiles.commands.ProfileCommand;
-import com.muhammaddaffa.playerprofiles.commands.UnlockCommand;
+import com.muhammaddaffa.playerprofiles.commands.*;
 import com.muhammaddaffa.playerprofiles.configs.ConfigManager;
 import com.muhammaddaffa.playerprofiles.inventory.InventoryManager;
 import com.muhammaddaffa.playerprofiles.listeners.PlayerInteract;
@@ -79,6 +76,8 @@ public class PlayerProfiles extends JavaPlugin {
         new LockCommand(this).registerThisCommand();
         // Register /unlockprofile command
         new UnlockCommand(this).registerThisCommand();
+        // Register /toggleprofile command
+        new ToggleCommand(this).registerThisCommand();
     }
 
     public static PlayerProfiles getInstance() {

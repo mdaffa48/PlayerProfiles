@@ -15,3 +15,5 @@ commands:
     aliases: []
   lockProfile:
     aliases: []
+  toggleprofile:
+    aliases: []
