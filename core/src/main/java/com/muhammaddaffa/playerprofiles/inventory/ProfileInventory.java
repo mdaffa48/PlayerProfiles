@@ -1,24 +1,24 @@
 package com.muhammaddaffa.playerprofiles.inventory;
 
+import com.muhammaddaffa.mdlib.fastinv.FastInv;
+import com.muhammaddaffa.mdlib.utils.Common;
+import com.muhammaddaffa.mdlib.utils.Executor;
 import com.muhammaddaffa.playerprofiles.ConfigValue;
-import com.muhammaddaffa.playerprofiles.configs.ConfigManager;
+import com.muhammaddaffa.playerprofiles.PlayerProfiles;
 import com.muhammaddaffa.playerprofiles.inventory.items.GUIItem;
 import com.muhammaddaffa.playerprofiles.utils.ClickManager;
 import com.muhammaddaffa.playerprofiles.utils.ItemManager;
 import com.muhammaddaffa.playerprofiles.utils.Utils;
-import me.aglerr.mclibs.inventory.SimpleInventory;
-import me.aglerr.mclibs.libs.Common;
-import me.aglerr.mclibs.libs.Executor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.List;
 
-public class ProfileInventory extends SimpleInventory {
+public class ProfileInventory extends FastInv {
 
     public ProfileInventory(List<GUIItem> items, Player player, Player target, int size, String title) {
-        super(size, Utils.tryParsePAPI(title, player, target));
+        super(size, Utils.tryParsePAPI(Common.color(title), player, target));
 
         this.setAllItems(items, player, target);
 
@@ -74,7 +74,7 @@ public class ProfileInventory extends SimpleInventory {
             });
         });
         // After all items being set, we finally set the fill items
-        ItemManager.fillItem(this, ConfigManager.GUI.getConfig());
+        ItemManager.fillItem(this, PlayerProfiles.GUI_DEFAULT.getConfig());
     }
 
     private void checkDistance(Player player, Player target){

@@ -1,6 +1,6 @@
 package com.muhammaddaffa.playerprofiles.manager;
 
-import me.aglerr.mclibs.libs.Common;
+import com.muhammaddaffa.mdlib.utils.Logger;
 import nl.marido.deluxecombat.api.DeluxeCombatAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
@@ -33,11 +33,11 @@ public class DependencyManager {
             Plugin plugin = pm.getPlugin("WorldGuard");
 
             if(plugin.getDescription().getVersion().startsWith("6"))
-                Common.log("&rFound WorldGuard! Using WorldGuard API version 6");
+                Logger.info("&rFound WorldGuard! Using WorldGuard API version 6");
                 WORLD_GUARD_VERSION = 6;
 
             if(plugin.getDescription().getVersion().startsWith("7"))
-                Common.log("&rFound WorldGuard! Using WorldGuard API version 7");
+                Logger.info("&rFound WorldGuard! Using WorldGuard API version 7");
                 WORLD_GUARD_VERSION = 7;
         }
 

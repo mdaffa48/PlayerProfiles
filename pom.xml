@@ -7,7 +7,7 @@
     <groupId>com.muhammaddaffa</groupId>
     <artifactId>PlayerProfiles</artifactId>
     <packaging>pom</packaging>
-    <version>7.2.0</version>
+    <version>8.0.0</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

@@ -1,15 +1,16 @@
 package com.muhammaddaffa.playerprofiles;
 
+import com.muhammaddaffa.mdlib.MDLib;
+import com.muhammaddaffa.mdlib.utils.Common;
+import com.muhammaddaffa.mdlib.utils.Config;
 import com.muhammaddaffa.playerprofiles.commands.*;
-import com.muhammaddaffa.playerprofiles.configs.ConfigManager;
+
 import com.muhammaddaffa.playerprofiles.inventory.InventoryManager;
 import com.muhammaddaffa.playerprofiles.listeners.PlayerInteract;
 import com.muhammaddaffa.playerprofiles.manager.DependencyManager;
 import com.muhammaddaffa.playerprofiles.manager.customgui.CustomGUIManager;
 import com.muhammaddaffa.playerprofiles.manager.profile.ProfileManager;
 import com.muhammaddaffa.playerprofiles.metrics.Metrics;
-import me.aglerr.mclibs.MCLibs;
-import me.aglerr.mclibs.libs.Common;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -19,20 +20,26 @@ public class PlayerProfiles extends JavaPlugin {
 
     private static PlayerProfiles instance;
 
+    public static Config DATA_DEFAULT, CONFIG_DEFAULT, GUI_DEFAULT;
+
     private final InventoryManager inventoryManager = new InventoryManager(this);
     private final CustomGUIManager customGUIManager = new CustomGUIManager(this);
     private final ProfileManager profileManager = new ProfileManager();
 
     @Override
+    public void onLoad() {
+        MDLib.inject(this);
+    }
+
+    @Override
     public void onEnable(){
         instance = this;
         // Injecting the libs
-        MCLibs.init(this);
-        Common.setPrefix("[PlayerProfiles]");
+        MDLib.onEnable(this);
         // Check the dependency
         DependencyManager.checkDependency();
         // Initialize all config
-        ConfigManager.initialize();
+        initializeConfig();
         // Initialize all config values
         ConfigValue.initialize();
         // Load all items for the inventory
@@ -52,13 +59,24 @@ public class PlayerProfiles extends JavaPlugin {
     @Override
     public void onDisable(){
         // Plugin shutdown logic
+        MDLib.shutdown();
         // Save all profile data
         profileManager.saveProfileData();
     }
 
+    private void initializeConfig() {
+        CONFIG_DEFAULT = new Config("config.yml", null, true);
+        GUI_DEFAULT = new Config("gui.yml", null, true);
+        DATA_DEFAULT = new Config("data.yml", null, false);
+
+        CONFIG_DEFAULT.setShouldUpdate(true);
+        Config.updateConfigs();
+        Config.reload();
+    }
+
     public void reloadAllThing(){
         // Reload all configuration
-        ConfigManager.reload();
+        Config.reload();
         // Re-initialize the config value
         ConfigValue.initialize();
         // Reload all items for the profile inventory

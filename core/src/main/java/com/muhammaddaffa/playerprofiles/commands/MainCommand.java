@@ -1,5 +1,7 @@
 package com.muhammaddaffa.playerprofiles.commands;
 
+import com.muhammaddaffa.mdlib.utils.Common;
+import com.muhammaddaffa.mdlib.utils.Logger;
 import com.muhammaddaffa.playerprofiles.ConfigValue;
 import com.muhammaddaffa.playerprofiles.PlayerProfiles;
 import com.muhammaddaffa.playerprofiles.commands.abstraction.SubCommand;
@@ -7,8 +9,6 @@ import com.muhammaddaffa.playerprofiles.commands.subcommands.ListGUICommand;
 import com.muhammaddaffa.playerprofiles.commands.subcommands.OpenGUICommand;
 import com.muhammaddaffa.playerprofiles.commands.subcommands.OpenProfileCommand;
 import com.muhammaddaffa.playerprofiles.commands.subcommands.ReloadCommand;
-import com.muhammaddaffa.playerprofiles.configs.ConfigManager;
-import me.aglerr.mclibs.libs.Common;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -44,7 +44,7 @@ public class MainCommand implements CommandExecutor, TabCompleter {
         plugin.getCommand(COMMAND_NAME).setExecutor(this);
         plugin.getCommand(COMMAND_NAME).setTabCompleter(this);
         // Get the file configuration of config.yml
-        FileConfiguration config = ConfigManager.CONFIG.getConfig();
+        FileConfiguration config = PlayerProfiles.CONFIG_DEFAULT.getConfig();
         // Get the aliases from the config
         List<String> aliases = config.getStringList("commandAliases.playerProfiles");
         // Add all aliases to the command
@@ -58,7 +58,7 @@ public class MainCommand implements CommandExecutor, TabCompleter {
 
             bukkitCommandMap.setAccessible(false);
         } catch (Exception ex){
-            Common.log("&cFailed to register /playerprofiles command");
+            Logger.info("&cFailed to register /playerprofiles command");
             ex.printStackTrace();
         }
     }

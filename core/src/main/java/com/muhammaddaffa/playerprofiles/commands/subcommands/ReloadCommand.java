@@ -3,7 +3,7 @@ package com.muhammaddaffa.playerprofiles.commands.subcommands;
 import com.muhammaddaffa.playerprofiles.ConfigValue;
 import com.muhammaddaffa.playerprofiles.PlayerProfiles;
 import com.muhammaddaffa.playerprofiles.commands.abstraction.SubCommand;
-import me.aglerr.mclibs.libs.Common;
+import com.muhammaddaffa.mdlib.utils.Common;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;

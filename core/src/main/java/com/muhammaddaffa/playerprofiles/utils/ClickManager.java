@@ -1,10 +1,11 @@
 package com.muhammaddaffa.playerprofiles.utils;
 
+import com.muhammaddaffa.mdlib.utils.Common;
+import com.muhammaddaffa.mdlib.utils.Logger;
 import com.muhammaddaffa.playerprofiles.PlayerProfiles;
 import com.muhammaddaffa.playerprofiles.inventory.items.GUIItem;
 import com.muhammaddaffa.playerprofiles.manager.customgui.CustomGUI;
 import com.muhammaddaffa.playerprofiles.manager.customgui.CustomGUIManager;
-import me.aglerr.mclibs.libs.Common;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -83,7 +84,7 @@ public class ClickManager {
             CustomGUI customGUI = customGUIManager.getByName(finalTask);
             // Return if the custom gui is invalid
             if(customGUI == null){
-                Common.log("&c" + player.getName() + " trying to open an invalid GUI! (" + finalTask + ")");
+                Logger.info("&c" + player.getName() + " trying to open an invalid GUI! (" + finalTask + ")");
                 return;
             }
             // If the custom gui is valid, open the inventory to the player

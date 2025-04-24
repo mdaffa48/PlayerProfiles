@@ -1,5 +1,6 @@
 package com.muhammaddaffa.playerprofiles.listeners;
 
+import com.muhammaddaffa.mdlib.utils.Common;
 import com.muhammaddaffa.playerprofiles.ConfigValue;
 import com.muhammaddaffa.playerprofiles.PlayerProfiles;
 import com.muhammaddaffa.playerprofiles.hooks.combatlogx.HCombatLogX;
@@ -9,7 +10,6 @@ import com.muhammaddaffa.playerprofiles.manager.DependencyManager;
 import com.muhammaddaffa.playerprofiles.manager.profile.ProfileManager;
 import com.muhammaddaffa.playerprofiles.utils.Utils;
 import com.muhammaddaffa.playerprofiles.worldguardwrapper.WorldGuardWrapper;
-import me.aglerr.mclibs.libs.Common;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -38,7 +38,7 @@ public class PlayerInteract implements Listener {
         // We check if the server is 1.9+, means they have off hand
         // This event will be fired twice for both main hand and off hand
         // So we want to stop the code if the interact hand is an off hand
-        if(Common.hasOffhand() && event.getHand() == EquipmentSlot.OFF_HAND){
+        if(Utils.hasOffHand() && event.getHand() == EquipmentSlot.OFF_HAND){
             return;
         }
         // Check the shift click option, basically this option is to define whether

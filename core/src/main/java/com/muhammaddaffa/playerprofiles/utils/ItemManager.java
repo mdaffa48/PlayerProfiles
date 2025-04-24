@@ -1,10 +1,12 @@
 package com.muhammaddaffa.playerprofiles.utils;
 
+import com.muhammaddaffa.mdlib.fastinv.FastInv;
+import com.muhammaddaffa.mdlib.utils.Common;
+import com.muhammaddaffa.mdlib.utils.ItemBuilder;
+import com.muhammaddaffa.mdlib.xseries.XMaterial;
+import com.muhammaddaffa.playerprofiles.PlayerProfiles;
 import com.muhammaddaffa.playerprofiles.inventory.items.GUIItem;
-import me.aglerr.mclibs.inventory.SimpleInventory;
-import me.aglerr.mclibs.libs.Common;
-import me.aglerr.mclibs.libs.ItemBuilder;
-import me.aglerr.mclibs.xseries.XMaterial;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
@@ -111,7 +113,7 @@ public class ItemManager {
             case "MAIN_HAND":
                 return createArmorItem(item, player, target, target.getItemInHand());
             case "OFF_HAND":{
-                if(Common.hasOffhand()){
+                if(Utils.hasOffHand()){
                     return createArmorItem(item, player, target, target.getInventory().getItemInOffHand());
                 }
                 return new ItemStack(Material.AIR);
@@ -121,7 +123,7 @@ public class ItemManager {
         }
     }
 
-    public static void fillItem(SimpleInventory inventory, FileConfiguration config){
+    public static void fillItem(FastInv inventory, FileConfiguration config){
         if(!config.getBoolean("fillItems.enabled")) return;
         // Get the Optional XMaterial
         Optional<XMaterial> optional = XMaterial.matchXMaterial(config.getString("fillItems.material"));
@@ -158,5 +160,6 @@ public class ItemManager {
                 .lore("&7Please check your configuration for item '{item}'".replace("{item}", item.name()), " ", "&7Additional Information:", "&7Material: {material}".replace("{material}", item.material()))
                 .build();
     }
+
 
 }

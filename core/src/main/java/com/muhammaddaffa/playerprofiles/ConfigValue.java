@@ -1,6 +1,5 @@
 package com.muhammaddaffa.playerprofiles;
 
-import com.muhammaddaffa.playerprofiles.configs.ConfigManager;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.List;
@@ -54,7 +53,7 @@ public class ConfigValue {
     public static List<String> HELP_MESSAGES;
 
     public static void initialize(){
-        FileConfiguration config = ConfigManager.CONFIG.getConfig();
+        FileConfiguration config = PlayerProfiles.CONFIG_DEFAULT.getConfig();
         PREFIX = config.getString("messages.prefix");
 
         AUTO_REFRESH_ENABLED = config.getBoolean("autoRefresh.enabled");
