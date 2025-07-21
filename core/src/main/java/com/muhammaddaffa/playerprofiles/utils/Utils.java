@@ -37,7 +37,7 @@ public class Utils {
         // Target profile status
         String targetStatus = profileManager.isProfileLocked(target) ? "&cLocked" : "&aUnlocked";
         // Finally, return the value with parsed player and target
-        return Common.papi(player, message)
+        return Common.papi(target, message)
                 .replace("{player}", player.getName())
                 .replace("{target}", target.getName())
                 .replace("{player_status}", playerStatus)

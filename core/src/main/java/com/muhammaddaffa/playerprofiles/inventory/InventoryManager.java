@@ -40,14 +40,14 @@ public class InventoryManager {
 
             FastInv inventory = new ProfileInventory(itemsLoader.getMainMenuItems(), player, target, size, title);
             inventory.open(player);
-            System.out.println("FROM NULL");
+            //System.out.println("FROM NULL");
             return;
         }
         // Code logic if the custom gui isn't null
         // And the CustomGUI is @NotNull because it has been checked before calling this method
         // Create the LazyInventory object
         FastInv inventory = new ProfileInventory(customGUI.items(), player, target, customGUI.size(), customGUI.title());
-        System.out.println("NOT NULL");
+        //System.out.println("NOT NULL");
         // Finally open the inventory for the player
         inventory.open(player);
     }

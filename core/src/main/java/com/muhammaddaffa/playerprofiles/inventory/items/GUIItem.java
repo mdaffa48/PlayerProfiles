@@ -17,7 +17,8 @@ public record GUIItem(
         List<String> rightCommands,
         int customModelData,
         boolean onlyOwner,
-        boolean onlyVisitor
+        boolean onlyVisitor,
+        int priority
 ) {
 
     @Override
@@ -50,6 +51,14 @@ public record GUIItem(
             return "invalid.permission";
         }
         return permission;
+    }
+
+    @Override
+    public int priority() {
+        if (priority == 0) {
+            return 100;
+        }
+        return priority;
     }
 
 }

@@ -1,0 +1,5 @@
+menu:
+  punish-gui:
+    fileName: "punish-gui.yml"
+  view-gui:
+    fileName: "view-gui.yml"

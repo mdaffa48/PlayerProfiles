@@ -48,9 +48,10 @@ public class ItemsLoader {
             int customModelData = config.getInt(path + ".customModelData");
             boolean onlyOwner = config.getBoolean(path + ".onlyOwner");
             boolean onlyVisitor = config.getBoolean(path + ".onlyVisitor");
+            int priority = config.getInt(path + ".priority", 0);
             // Finally add the item to the list
             GUIItem guiItem = new GUIItem(type, material, amount, name, slots, glowing, hideAttributes, usePermission,
-                    permission, lore, leftCommands, rightCommands, customModelData, onlyOwner, onlyVisitor);
+                    permission, lore, leftCommands, rightCommands, customModelData, onlyOwner, onlyVisitor, priority);
             this.mainMenuItems.add(guiItem);
         }
     }

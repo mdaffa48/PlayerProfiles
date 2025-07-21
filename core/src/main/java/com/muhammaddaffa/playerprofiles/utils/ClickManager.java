@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 
 public class ClickManager {
 
-    private static final Pattern pattern = Pattern.compile("(?<=\\[CONSOLE\\] |\\[PLAYER\\] |\\[SOUND\\] |\\[MESSAGE\\] |\\[OPENGUIMENU\\] |\\[CLOSE\\])");
+    private static final Pattern pattern = Pattern.compile("(?<=\\[CONSOLE\\] |\\[PLAYER\\] |\\[SOUND\\] |\\[MESSAGEPLAYER\\] |\\[MESSAGETARGET\\] |\\[OPENGUIMENU\\] |\\[CLOSE\\])");
 
     public static void handleInventoryClick(GUIItem item, Player player, Player target, InventoryClickEvent event){
         // First of all, cancel the fucking event
@@ -39,10 +39,10 @@ public class ClickManager {
 
     private static void handleInventoryRightClick(GUIItem item, Player player, Player target){
         // Loop through all right click commands and handle the task
-        item.leftCommands().forEach(command -> handleTask(command, player, target));
+        item.rightCommands().forEach(command -> handleTask(command, player, target));
     }
 
-    private static void handleTask(String command, Player player, Player target){
+    private static void handleTask(String command, Player player, Player target) {
         // Get the array from the splitted pattern
         String[] cmds = pattern.split(command);
         String tag = cmds[0];
@@ -70,9 +70,14 @@ public class ClickManager {
             return;
         }
         // Check if the tag is MESSAGE
-        if(tag.equalsIgnoreCase("[MESSAGE] ")){
+        if(tag.equalsIgnoreCase("[MESSAGEPLAYER] ")) {
             // Send the player a message
             player.sendMessage(Common.color(finalTask));
+            return;
+        }
+        if (tag.equalsIgnoreCase("[MESSAGETARGET] ")) {
+            // Send the target a message
+            target.sendMessage(Common.color(finalTask));
             return;
         }
         // Check if the tag is OPENGUIMENU

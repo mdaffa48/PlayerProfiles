@@ -13,6 +13,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class ProfileInventory extends FastInv {
@@ -41,9 +43,12 @@ public class ProfileInventory extends FastInv {
 
     }
 
-    private void setAllItems(List<GUIItem> items, Player player, Player target){
+    private void setAllItems(List<GUIItem> items, Player player, Player target) {
+        List<GUIItem> clonedItem = new ArrayList<>(items);
+        clonedItem.sort(Comparator.comparingInt(GUIItem::priority));
+
         // Loop through all items
-        items.forEach(item -> {
+        clonedItem.forEach(item -> {
             // Get the item stack
             ItemStack stack = ItemManager.createGUIItem(item, player, target);
             // Check if the item use permission to see

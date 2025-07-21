@@ -1,5 +1,7 @@
 package com.muhammaddaffa.playerprofiles.utils;
 
+import com.github.sirblobman.api.shaded.xseries.profiles.objects.ProfileInputType;
+import com.github.sirblobman.api.shaded.xseries.profiles.objects.Profileable;
 import com.muhammaddaffa.mdlib.fastinv.FastInv;
 import com.muhammaddaffa.mdlib.utils.Common;
 import com.muhammaddaffa.mdlib.utils.ItemBuilder;
@@ -8,12 +10,16 @@ import com.muhammaddaffa.playerprofiles.PlayerProfiles;
 import com.muhammaddaffa.playerprofiles.inventory.items.GUIItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.block.Skull;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
+import javax.annotation.Nonnull;
 import java.util.Optional;
 
 public class ItemManager {
@@ -43,13 +49,20 @@ public class ItemManager {
                         .replace("{player}", player.getName())
                         .replace("{target}", target.getName());
                 // And now build the ItemStack using ItemBuilder
-                builder = new ItemBuilder(XMaterial.PLAYER_HEAD.parseItem())
+                ItemBuilder base = new ItemBuilder(XMaterial.PLAYER_HEAD.parseItem())
                         .name(Utils.tryParsePAPI(item.name(), player, target))
                         .lore(Utils.tryParsePAPI(item.lore(), player, target))
                         .amount(Math.max(1, item.amount()))
-                        .customModelData(item.customModelData())
-                        .skull(headValue);
+                        .customModelData(item.customModelData());
+                try {
+                    base.skull(headValue); // bisa jadi nama player
+                } catch (Exception e) {
+                    // fallback ke Steve (atau custom skin base64)
+                    base.skull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJl...");
+                }
+                builder = base;
             }
+
         } else {
             // If the item doesn't contains ';', that means the item is not a head
             // First of all, we check if the item is exist or valid
@@ -155,6 +168,7 @@ public class ItemManager {
     }
 
     private static ItemStack errorItem(GUIItem item){
+
         return new ItemBuilder(XMaterial.BARRIER.parseItem())
                 .name("&cInvalid Material!")
                 .lore("&7Please check your configuration for item '{item}'".replace("{item}", item.name()), " ", "&7Additional Information:", "&7Material: {material}".replace("{material}", item.material()))

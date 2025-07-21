@@ -36,9 +36,7 @@ public class CustomGUIManager {
         loadCustomGUI();
     }
 
-
-
-    public void loadCustomGUI(){
+    public void loadCustomGUI() {
         // Get the directory path
         // Get the custom-gui directory
         File directory = getMainDirectory();
@@ -70,7 +68,7 @@ public class CustomGUIManager {
             // Get the inventory size
             int size = config.getInt("size");
             // Now, we load the items - first loop through all items
-            for(String configKey : config.getConfigurationSection("items").getKeys(false)){
+            for (String configKey : config.getConfigurationSection("items").getKeys(false)) {
                 String path = "items." + configKey;
                 String type = config.getString(path + ".type");
                 String material = config.getString(path + ".material");
@@ -87,9 +85,10 @@ public class CustomGUIManager {
                 int customModelData = config.getInt(path + ".customModelData");
                 boolean onlyOwner = config.getBoolean(path + ".onlyOwner");
                 boolean onlyVisitor = config.getBoolean(path + ".onlyVisitor");
+                int priority = config.getInt(path + ".priority", 0);
                 // Create the GUIItem object
                 GUIItem guiItem = new GUIItem(type, material, amount, name, slots, glowing, hideAttributes, usePermission,
-                        permission, lore, leftCommands, rightCommands, customModelData, onlyOwner, onlyVisitor);
+                        permission, lore, leftCommands, rightCommands, customModelData, onlyOwner, onlyVisitor, priority);
                 // Finally add the gui item to the list that has been created before
                 guiItems.add(guiItem);
             }

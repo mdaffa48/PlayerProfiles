@@ -60,7 +60,7 @@ public class ProfileCommand implements CommandExecutor, TabCompleter {
         // Get the InventoryManager
         InventoryManager inventoryManager = plugin.getInventoryManager();
         // Check if args length is 0 (/profile)
-        if(args.length == 0){
+        if (args.length == 0) {
             // Permission: playerprofiles.profile
             if(!(player.hasPermission("playerprofiles.profile"))){
                 player.sendMessage(Common.color(ConfigValue.NO_PERMISSION
@@ -74,7 +74,7 @@ public class ProfileCommand implements CommandExecutor, TabCompleter {
             return true;
         }
         // Check if args length is 1 (/profile (player))
-        if(args.length == 1){
+        if (args.length == 1) {
             // Permission: playerprofiles.profile.others
             if(!(player.hasPermission("playerprofiles.profile.others"))){
                 player.sendMessage(Common.color(ConfigValue.NO_PERMISSION
