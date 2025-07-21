@@ -1,10 +1,10 @@
 package com.muhammaddaffa.playerprofiles.commands;
 
+import com.muhammaddaffa.mdlib.utils.Common;
+import com.muhammaddaffa.mdlib.utils.Logger;
 import com.muhammaddaffa.playerprofiles.ConfigValue;
 import com.muhammaddaffa.playerprofiles.PlayerProfiles;
-import com.muhammaddaffa.playerprofiles.configs.ConfigManager;
 import com.muhammaddaffa.playerprofiles.inventory.InventoryManager;
-import me.aglerr.mclibs.libs.Common;
 import org.bukkit.Bukkit;
 import org.bukkit.command.*;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -29,7 +29,7 @@ public class ProfileCommand implements CommandExecutor, TabCompleter {
         plugin.getCommand(COMMAND_NAME).setExecutor(this);
         plugin.getCommand(COMMAND_NAME).setTabCompleter(this);
         // Get the file configuration of config.yml
-        FileConfiguration config = ConfigManager.CONFIG.getConfig();
+        FileConfiguration config = PlayerProfiles.CONFIG_DEFAULT.getConfig();
         // Get the aliases from the config
         List<String> aliases = config.getStringList("commandAliases.profile");
         // Add all aliases to the command
@@ -43,7 +43,7 @@ public class ProfileCommand implements CommandExecutor, TabCompleter {
 
             bukkitCommandMap.setAccessible(false);
         } catch (Exception ex){
-            Common.log("&cFailed to register /profile command");
+            Logger.info("&cFailed to register /profile command");
             ex.printStackTrace();
         }
     }
@@ -52,7 +52,7 @@ public class ProfileCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command cmd, @NotNull String label, @NotNull String[] args) {
         // If the command sender is not player, return the code
         if(!(sender instanceof Player)){
-            Common.log("&cOnly players can execute /profile command");
+            Logger.info("&cOnly players can execute /profile command");
             return true;
         }
         // Get the player object from the sender
@@ -60,7 +60,7 @@ public class ProfileCommand implements CommandExecutor, TabCompleter {
         // Get the InventoryManager
         InventoryManager inventoryManager = plugin.getInventoryManager();
         // Check if args length is 0 (/profile)
-        if(args.length == 0){
+        if (args.length == 0) {
             // Permission: playerprofiles.profile
             if(!(player.hasPermission("playerprofiles.profile"))){
                 player.sendMessage(Common.color(ConfigValue.NO_PERMISSION
@@ -74,7 +74,7 @@ public class ProfileCommand implements CommandExecutor, TabCompleter {
             return true;
         }
         // Check if args length is 1 (/profile (player))
-        if(args.length == 1){
+        if (args.length == 1) {
             // Permission: playerprofiles.profile.others
             if(!(player.hasPermission("playerprofiles.profile.others"))){
                 player.sendMessage(Common.color(ConfigValue.NO_PERMISSION

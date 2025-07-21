@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.muhammaddaffa</groupId>
         <artifactId>PlayerProfiles</artifactId>
-        <version>7.2.0</version>
+        <version>8.0.2</version>
     </parent>
 
     <artifactId>core</artifactId>
@@ -58,6 +58,10 @@
             <url>https://maven.enginehub.org/repo/</url>
         </repository>
         <repository>
+            <id>sirblobman-public</id>
+            <url>https://nexus.sirblobman.xyz/public/</url>
+        </repository>
+        <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
         </repository>
@@ -73,36 +77,34 @@
         <dependency>
             <groupId>me.clip</groupId>
             <artifactId>placeholderapi</artifactId>
-            <version>2.11.5</version>
+            <version>2.11.6</version>
             <scope>provided</scope>
         </dependency>
+        <!-- mdlib -->
         <dependency>
-            <groupId>com.github.aglerr</groupId>
-            <artifactId>MCLibs</artifactId>
-            <version>0.2.0</version>
+            <groupId>com.github.mdaffa48</groupId>
+            <artifactId>MDLib</artifactId>
+            <version>2.0.16</version>
         </dependency>
         <!-- BlueSlimeCore -->
         <dependency>
             <groupId>com.github.sirblobman.api</groupId>
             <artifactId>core</artifactId>
             <version>2.9-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/deps/BlueSlimeCore.jar</systemPath>
+            <scope>provided</scope>
         </dependency>
         <!-- CombatLogX API -->
         <dependency>
             <groupId>com.github.sirblobman.combatlogx</groupId>
             <artifactId>api</artifactId>
             <version>11.4-SNAPSHOT</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/deps/CombatLogX.jar</systemPath>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.deluxecombat</groupId>
-            <artifactId>deluxecombatapi</artifactId>
-            <version>1.0</version>
-            <scope>system</scope>
-            <systemPath>${project.basedir}/deps/DeluxeCombatAPI.jar</systemPath>
+            <groupId>com.github.timderspieler</groupId>
+            <artifactId>DeluxeCombat-API</artifactId>
+            <version>1.5.1</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>

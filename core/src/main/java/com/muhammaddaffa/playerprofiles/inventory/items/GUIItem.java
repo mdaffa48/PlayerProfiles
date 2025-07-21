@@ -2,10 +2,24 @@ package com.muhammaddaffa.playerprofiles.inventory.items;
 
 import java.util.List;
 
-public record GUIItem(String type, String material, int amount, String name, List<Integer> slots, boolean glowing,
-                      boolean hideAttributes, boolean usePermission, String permission, List<String> lore,
-                      List<String> leftCommands, List<String> rightCommands, int customModelData, boolean onlyOwner,
-                      boolean onlyVisitor) {
+public record GUIItem(
+        String type,
+        String material,
+        int amount,
+        String name,
+        List<Integer> slots,
+        boolean glowing,
+        boolean hideAttributes,
+        boolean usePermission,
+        String permission,
+        List<String> lore,
+        List<String> leftCommands,
+        List<String> rightCommands,
+        int customModelData,
+        boolean onlyOwner,
+        boolean onlyVisitor,
+        int priority
+) {
 
     @Override
     public String type() {
@@ -37,6 +51,14 @@ public record GUIItem(String type, String material, int amount, String name, Lis
             return "invalid.permission";
         }
         return permission;
+    }
+
+    @Override
+    public int priority() {
+        if (priority == 0) {
+            return 100;
+        }
+        return priority;
     }
 
 }

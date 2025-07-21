@@ -1,7 +1,7 @@
 name: PlayerProfiles
-version: 7.0.0
+version: 8.0.2
 main: com.muhammaddaffa.playerprofiles.PlayerProfiles
-author: aglerr
+author: aglerr, Starfruit2210
 description: Plugin to show player profiles
 api-version: 1.13
 softdepend: [CombatLogX, DeluxeCombat, PlaceholderAPI, WorldGuard, WorldEdit]

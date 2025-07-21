@@ -1,10 +1,11 @@
 package com.muhammaddaffa.playerprofiles.utils;
 
+import com.muhammaddaffa.mdlib.utils.Common;
+import com.muhammaddaffa.mdlib.utils.Logger;
 import com.muhammaddaffa.playerprofiles.PlayerProfiles;
 import com.muhammaddaffa.playerprofiles.inventory.items.GUIItem;
 import com.muhammaddaffa.playerprofiles.manager.customgui.CustomGUI;
 import com.muhammaddaffa.playerprofiles.manager.customgui.CustomGUIManager;
-import me.aglerr.mclibs.libs.Common;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -18,7 +19,7 @@ import java.util.regex.Pattern;
 
 public class ClickManager {
 
-    private static final Pattern pattern = Pattern.compile("(?<=\\[CONSOLE\\] |\\[PLAYER\\] |\\[SOUND\\] |\\[MESSAGE\\] |\\[OPENGUIMENU\\] |\\[CLOSE\\])");
+    private static final Pattern pattern = Pattern.compile("(?<=\\[CONSOLE\\] |\\[PLAYER\\] |\\[SOUND\\] |\\[MESSAGEPLAYER\\] |\\[MESSAGETARGET\\] |\\[OPENGUIMENU\\] |\\[CLOSE\\])");
 
     public static void handleInventoryClick(GUIItem item, Player player, Player target, InventoryClickEvent event){
         // First of all, cancel the fucking event
@@ -38,10 +39,10 @@ public class ClickManager {
 
     private static void handleInventoryRightClick(GUIItem item, Player player, Player target){
         // Loop through all right click commands and handle the task
-        item.leftCommands().forEach(command -> handleTask(command, player, target));
+        item.rightCommands().forEach(command -> handleTask(command, player, target));
     }
 
-    private static void handleTask(String command, Player player, Player target){
+    private static void handleTask(String command, Player player, Player target) {
         // Get the array from the splitted pattern
         String[] cmds = pattern.split(command);
         String tag = cmds[0];
@@ -69,9 +70,14 @@ public class ClickManager {
             return;
         }
         // Check if the tag is MESSAGE
-        if(tag.equalsIgnoreCase("[MESSAGE] ")){
+        if(tag.equalsIgnoreCase("[MESSAGEPLAYER] ")) {
             // Send the player a message
             player.sendMessage(Common.color(finalTask));
+            return;
+        }
+        if (tag.equalsIgnoreCase("[MESSAGETARGET] ")) {
+            // Send the target a message
+            target.sendMessage(Common.color(finalTask));
             return;
         }
         // Check if the tag is OPENGUIMENU
@@ -83,7 +89,7 @@ public class ClickManager {
             CustomGUI customGUI = customGUIManager.getByName(finalTask);
             // Return if the custom gui is invalid
             if(customGUI == null){
-                Common.log("&c" + player.getName() + " trying to open an invalid GUI! (" + finalTask + ")");
+                Logger.info("&c" + player.getName() + " trying to open an invalid GUI! (" + finalTask + ")");
                 return;
             }
             // If the custom gui is valid, open the inventory to the player

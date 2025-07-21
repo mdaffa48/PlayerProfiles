@@ -1,7 +1,7 @@
 package com.muhammaddaffa.playerprofiles.inventory.items;
 
 import com.muhammaddaffa.playerprofiles.PlayerProfiles;
-import com.muhammaddaffa.playerprofiles.configs.ConfigManager;
+
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ public class ItemsLoader {
     }
 
     private void loadMainMenuItems(){
-        FileConfiguration config = ConfigManager.GUI.getConfig();
+        FileConfiguration config = PlayerProfiles.GUI_DEFAULT.getConfig();
         // Return if there is no items
         if(!config.isConfigurationSection("items")) return;
         // Loop through all items
@@ -48,9 +48,10 @@ public class ItemsLoader {
             int customModelData = config.getInt(path + ".customModelData");
             boolean onlyOwner = config.getBoolean(path + ".onlyOwner");
             boolean onlyVisitor = config.getBoolean(path + ".onlyVisitor");
+            int priority = config.getInt(path + ".priority", 0);
             // Finally add the item to the list
             GUIItem guiItem = new GUIItem(type, material, amount, name, slots, glowing, hideAttributes, usePermission,
-                    permission, lore, leftCommands, rightCommands, customModelData, onlyOwner, onlyVisitor);
+                    permission, lore, leftCommands, rightCommands, customModelData, onlyOwner, onlyVisitor, priority);
             this.mainMenuItems.add(guiItem);
         }
     }

@@ -1,15 +1,14 @@
 package com.muhammaddaffa.playerprofiles.manager.customgui;
 
+import com.muhammaddaffa.mdlib.utils.Common;
 import com.muhammaddaffa.playerprofiles.PlayerProfiles;
 import com.muhammaddaffa.playerprofiles.inventory.items.GUIItem;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Boat;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class CustomGUIManager {
 
@@ -37,26 +36,25 @@ public class CustomGUIManager {
         loadCustomGUI();
     }
 
-    public void loadCustomGUI(){
+    public void loadCustomGUI() {
         // Get the directory path
-        final String DIRECTORY = plugin.getDataFolder() + File.separator + "custom-gui";
         // Get the custom-gui directory
-        File directory = new File(DIRECTORY);
+        File directory = getMainDirectory();
         // Check if the directory is not exist
         if(!directory.exists())
             // Finally create the directory
             directory.mkdirs();
         // Get all files in custom-gui directory
-        File[] files = new File(DIRECTORY).listFiles();
+        File[] files = directory.listFiles();
         // Check if there is no files
         if(files.length <= 0){
             // Create the file onto the server directory
             plugin.saveResource("custom-gui/punish-gui.yml", false);
         }
         // Now get the final list of files in the directory
-        File[] finalFiles = new File(DIRECTORY).listFiles();
+        File[] finalFiles = directory.listFiles();
         // Loop through all files
-        for(File file : finalFiles){
+        for (File file : finalFiles){
             // Get the file configuration
             FileConfiguration config = YamlConfiguration.loadConfiguration(file);
             // Get the file name
@@ -70,7 +68,7 @@ public class CustomGUIManager {
             // Get the inventory size
             int size = config.getInt("size");
             // Now, we load the items - first loop through all items
-            for(String configKey : config.getConfigurationSection("items").getKeys(false)){
+            for (String configKey : config.getConfigurationSection("items").getKeys(false)) {
                 String path = "items." + configKey;
                 String type = config.getString(path + ".type");
                 String material = config.getString(path + ".material");
@@ -87,18 +85,23 @@ public class CustomGUIManager {
                 int customModelData = config.getInt(path + ".customModelData");
                 boolean onlyOwner = config.getBoolean(path + ".onlyOwner");
                 boolean onlyVisitor = config.getBoolean(path + ".onlyVisitor");
+                int priority = config.getInt(path + ".priority", 0);
                 // Create the GUIItem object
                 GUIItem guiItem = new GUIItem(type, material, amount, name, slots, glowing, hideAttributes, usePermission,
-                        permission, lore, leftCommands, rightCommands, customModelData, onlyOwner, onlyVisitor);
+                        permission, lore, leftCommands, rightCommands, customModelData, onlyOwner, onlyVisitor, priority);
                 // Finally add the gui item to the list that has been created before
                 guiItems.add(guiItem);
             }
             // After items are loaded, now we create the CustomGUI object
-            CustomGUI customGUI = new CustomGUI(fileName, finalTitle, size, config, guiItems);
+            CustomGUI customGUI = new CustomGUI(fileName, Common.color(finalTitle), size, config, guiItems);
             // Now we store the custom gui onto the list
             this.guiMap.put(fileName, customGUI);
         }
         // That's it
+    }
+
+    private File getMainDirectory() {
+        return new File(PlayerProfiles.getInstance().getDataFolder() + File.separator + "custom-gui");
     }
 
 }
