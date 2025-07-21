@@ -19,7 +19,7 @@ import java.util.regex.Pattern;
 
 public class ClickManager {
 
-    private static final Pattern pattern = Pattern.compile("(?<=\\[CONSOLE\\] |\\[PLAYER\\] |\\[SOUND\\] |\\[MESSAGEPLAYER\\] |\\[MESSAGETARGET\\] |\\[OPENGUIMENU\\] |\\[CLOSE\\])");
+    private static final Pattern pattern = Pattern.compile("(?<=\\[CONSOLE\\] |\\[PLAYER\\] |\\[SOUND\\] |\\[MESSAGE\\] |\\[MESSAGEPLAYER\\] |\\[MESSAGETARGET\\] |\\[OPENGUIMENU\\] |\\[CLOSE\\])");
 
     public static void handleInventoryClick(GUIItem item, Player player, Player target, InventoryClickEvent event){
         // First of all, cancel the fucking event
@@ -67,6 +67,13 @@ public class ClickManager {
             finalTask = ChatColor.stripColor(finalTask);
             // Make the player perform a command
             player.performCommand(finalTask);
+            return;
+        }
+        if (tag.equalsIgnoreCase("[MESSAGE] ")) {
+            // Send the player a message
+            player.sendMessage(Common.color(finalTask));
+            // Send the target a message
+            target.sendMessage(Common.color(finalTask));
             return;
         }
         // Check if the tag is MESSAGE
