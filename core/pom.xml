@@ -6,7 +6,7 @@
     <parent>
         <groupId>com.muhammaddaffa</groupId>
         <artifactId>PlayerProfiles</artifactId>
-        <version>8.0.0</version>
+        <version>8.0.2</version>
     </parent>
 
     <artifactId>core</artifactId>
@@ -77,14 +77,14 @@
         <dependency>
             <groupId>me.clip</groupId>
             <artifactId>placeholderapi</artifactId>
-            <version>2.11.5</version>
+            <version>2.11.6</version>
             <scope>provided</scope>
         </dependency>
         <!-- mdlib -->
         <dependency>
             <groupId>com.github.mdaffa48</groupId>
             <artifactId>MDLib</artifactId>
-            <version>2.0.12</version>
+            <version>2.0.16</version>
         </dependency>
         <!-- BlueSlimeCore -->
         <dependency>
