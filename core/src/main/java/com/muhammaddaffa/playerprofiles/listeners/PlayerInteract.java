@@ -41,14 +41,8 @@ public class PlayerInteract implements Listener {
         if(Utils.hasOffHand() && event.getHand() == EquipmentSlot.OFF_HAND){
             return;
         }
-        // Check the shift click option, basically this option is to define whether
-        // should we only allow opening profile with shift click or not
-        if(ConfigValue.MUST_SHIFT_CLICK && !player.isSneaking()){
-            return;
-        }
-        // Check for the shift click option
-        // If the shift click is disabled and player is sneaking, return the code
-        if(!ConfigValue.MUST_SHIFT_CLICK && player.isSneaking()){
+        // Check if the player must shift click to open the profile
+        if (ConfigValue.MUST_SHIFT_CLICK && !event.getPlayer().isSneaking()) {
             return;
         }
         // Now, we get the right clicked entity as Player
