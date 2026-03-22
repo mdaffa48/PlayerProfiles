@@ -1,6 +1,7 @@
 package com.muhammaddaffa.playerprofiles.inventory;
 
 import com.muhammaddaffa.mdlib.fastinv.FastInv;
+import com.muhammaddaffa.mdlib.task.handleTask.HandleTask;
 import com.muhammaddaffa.mdlib.utils.Common;
 import com.muhammaddaffa.mdlib.utils.Executor;
 import com.muhammaddaffa.playerprofiles.ConfigValue;
@@ -27,7 +28,7 @@ public class ProfileInventory extends FastInv {
         // If auto refresh is enabled
         if(ConfigValue.AUTO_REFRESH_ENABLED){
             // Start the auto refresh task
-            BukkitTask task = Executor.syncTimer(0L, ConfigValue.AUTO_REFRESH_TICK, () ->
+            HandleTask task = Executor.syncTimer(0L, ConfigValue.AUTO_REFRESH_TICK, () ->
                     this.setAllItems(items, player, target));
             // And remove the task after the inventory closed
             this.addCloseHandler(event -> task.cancel());
@@ -35,7 +36,7 @@ public class ProfileInventory extends FastInv {
         // If distance check is enabled
         if(ConfigValue.DISTANCE_CHECK_ENABLED){
             // Start the check distance task
-            BukkitTask task = Executor.syncTimer(0L, 20L, () ->
+            HandleTask task = Executor.syncTimer(0L, 20L, () ->
                     checkDistance(player, target));
             // And remove the task after the inventory closed
             this.addCloseHandler(event -> task.cancel());
