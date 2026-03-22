@@ -1,7 +1,7 @@
 package com.muhammaddaffa.playerprofiles.manager.profile;
 
-import com.muhammaddaffa.playerprofiles.configs.ConfigManager;
-import me.aglerr.mclibs.libs.CustomConfig;
+import com.muhammaddaffa.mdlib.utils.Config;
+import com.muhammaddaffa.playerprofiles.PlayerProfiles;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
@@ -49,7 +49,7 @@ public class ProfileManager {
 
     public void loadProfileData(){
         // Get the file configuration of data.yml
-        FileConfiguration config = ConfigManager.DATA.getConfig();
+        FileConfiguration config = PlayerProfiles.DATA_DEFAULT.getConfig();
         // If there is no data, just stop the code
         if(!config.isConfigurationSection("data")) return;
         // Loop through all data config section
@@ -63,7 +63,7 @@ public class ProfileManager {
 
     public void saveProfileData(){
         // Get the File of data.yml
-        CustomConfig data = ConfigManager.DATA;
+        Config data = PlayerProfiles.DATA_DEFAULT;
         // Get the file configuration of data.yml
         FileConfiguration config = data.getConfig();
         // Loop through all data in the hash map

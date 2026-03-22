@@ -1,18 +1,22 @@
 package com.muhammaddaffa.playerprofiles.utils;
 
+import com.muhammaddaffa.mdlib.fastinv.FastInv;
+import com.muhammaddaffa.mdlib.utils.Common;
+import com.muhammaddaffa.mdlib.utils.ItemBuilder;
+import com.muhammaddaffa.mdlib.xseries.XMaterial;
 import com.muhammaddaffa.playerprofiles.inventory.items.GUIItem;
-import me.aglerr.mclibs.inventory.SimpleInventory;
-import me.aglerr.mclibs.libs.Common;
-import me.aglerr.mclibs.libs.ItemBuilder;
-import me.aglerr.mclibs.xseries.XMaterial;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Optional;
+import java.util.UUID;
 
 public class ItemManager {
 
@@ -41,13 +45,20 @@ public class ItemManager {
                         .replace("{player}", player.getName())
                         .replace("{target}", target.getName());
                 // And now build the ItemStack using ItemBuilder
-                builder = new ItemBuilder(XMaterial.PLAYER_HEAD.parseItem())
+                ItemBuilder base = new ItemBuilder(XMaterial.PLAYER_HEAD.parseItem())
                         .name(Utils.tryParsePAPI(item.name(), player, target))
                         .lore(Utils.tryParsePAPI(item.lore(), player, target))
                         .amount(Math.max(1, item.amount()))
-                        .customModelData(item.customModelData())
-                        .skull(headValue);
+                        .customModelData(item.customModelData());
+                try {
+                    base.skull(headValue); // bisa jadi nama player
+                } catch (Exception e) {
+                    // fallback ke Steve (atau custom skin base64)
+                    base.skull("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJl...");
+                }
+                builder = base;
             }
+
         } else {
             // If the item doesn't contains ';', that means the item is not a head
             // First of all, we check if the item is exist or valid
@@ -67,8 +78,25 @@ public class ItemManager {
         // Add hide attributes item flag if it's enabled
         if(item.hideAttributes()) builder.flags(ItemFlag.HIDE_ATTRIBUTES);
         // Add random enchant and hide enchant attributes if item set to glowing
-        if(item.glowing()) builder.enchant(Enchantment.ARROW_DAMAGE).flags(ItemFlag.HIDE_ENCHANTS);
-        return builder.build();
+        if(item.glowing()) builder.enchant(Enchantment.UNBREAKING).flags(ItemFlag.HIDE_ENCHANTS);
+        // Finally build the item stack
+        ItemStack stack = builder.build();
+        // Create ItemMeta
+        ItemMeta meta = stack.getItemMeta();
+        if (meta == null) return null;
+        // Add the item model if it's not null or empty
+        String modelItemString = item.itemModel();
+        if (isVersionAtLeast(1, 21, 2)) {
+            if (modelItemString != null) {
+                String[] parts = modelItemString.split(":", 2);
+                if (parts.length == 2) {
+                    NamespacedKey modelItem = NamespacedKey.fromString(parts[0] + ":" + parts[1]);
+                    meta.setItemModel(modelItem);
+                    stack.setItemMeta(meta);
+                }
+            }
+        }
+        return stack;
     }
 
     public static ItemStack createGUIItem(GUIItem item, Player player, Player target){
@@ -111,7 +139,7 @@ public class ItemManager {
             case "MAIN_HAND":
                 return createArmorItem(item, player, target, target.getItemInHand());
             case "OFF_HAND":{
-                if(Common.hasOffhand()){
+                if(Utils.hasOffHand()){
                     return createArmorItem(item, player, target, target.getInventory().getItemInOffHand());
                 }
                 return new ItemStack(Material.AIR);
@@ -121,7 +149,7 @@ public class ItemManager {
         }
     }
 
-    public static void fillItem(SimpleInventory inventory, FileConfiguration config){
+    public static void fillItem(FastInv inventory, FileConfiguration config){
         if(!config.getBoolean("fillItems.enabled")) return;
         // Get the Optional XMaterial
         Optional<XMaterial> optional = XMaterial.matchXMaterial(config.getString("fillItems.material"));
@@ -153,10 +181,60 @@ public class ItemManager {
     }
 
     private static ItemStack errorItem(GUIItem item){
+
         return new ItemBuilder(XMaterial.BARRIER.parseItem())
                 .name("&cInvalid Material!")
                 .lore("&7Please check your configuration for item '{item}'".replace("{item}", item.name()), " ", "&7Additional Information:", "&7Material: {material}".replace("{material}", item.material()))
                 .build();
     }
+
+    private static boolean isUuidString(String input) {
+        if (input == null) return false;
+        try {
+            UUID.fromString(input);
+            return true;
+        } catch (IllegalArgumentException ex) {
+            return false;
+        }
+    }
+
+    private static boolean isBase64Texture(String input) {
+        if (input == null) return false;
+        // Ciri umum base64 textures Mojang: string panjang, karakter base64, sering diawali "eyJ0ZXh0dXJlcy"
+        if (input.length() < 40) return false;
+        if (input.startsWith("eyJ0ZXh0dXJlcy")) return true;
+        // Kalau kamu simpan URL textures langsung, bisa tambahkan cek "http://textures.minecraft.net"
+        if (input.startsWith("http://textures.minecraft.net") || input.startsWith("https://textures.minecraft.net")) {
+            return true;
+        }
+        // Cek karakter base64 dasar
+        for (int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
+            boolean ok = (c >= 'A' && c <= 'Z')
+                    || (c >= 'a' && c <= 'z')
+                    || (c >= '0' && c <= '9')
+                    || c == '+' || c == '/' || c == '=' || c == '-' || c == '_';
+            if (!ok) return false;
+        }
+        return true;
+    }
+
+    public static boolean isVersionAtLeast(int major, int minor, int patch) {
+        String version = Bukkit.getBukkitVersion().split("-")[0];
+        String[] parts = version.split("\\.");
+
+        try {
+            int maj = Integer.parseInt(parts[0]);
+            int min = Integer.parseInt(parts[1]);
+            int pat = parts.length > 2 ? Integer.parseInt(parts[2]) : 0;
+
+            if (maj != major) return maj > major;
+            if (min != minor) return min > minor;
+            return pat >= patch;
+        } catch (NumberFormatException e) {
+            return false; // fallback
+        }
+    }
+
 
 }

@@ -1,31 +1,34 @@
 package com.muhammaddaffa.playerprofiles.inventory;
 
+import com.muhammaddaffa.mdlib.fastinv.FastInv;
+import com.muhammaddaffa.mdlib.task.handleTask.HandleTask;
+import com.muhammaddaffa.mdlib.utils.Common;
+import com.muhammaddaffa.mdlib.utils.Executor;
 import com.muhammaddaffa.playerprofiles.ConfigValue;
-import com.muhammaddaffa.playerprofiles.configs.ConfigManager;
+import com.muhammaddaffa.playerprofiles.PlayerProfiles;
 import com.muhammaddaffa.playerprofiles.inventory.items.GUIItem;
 import com.muhammaddaffa.playerprofiles.utils.ClickManager;
 import com.muhammaddaffa.playerprofiles.utils.ItemManager;
 import com.muhammaddaffa.playerprofiles.utils.Utils;
-import me.aglerr.mclibs.inventory.SimpleInventory;
-import me.aglerr.mclibs.libs.Common;
-import me.aglerr.mclibs.libs.Executor;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitTask;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-public class ProfileInventory extends SimpleInventory {
+public class ProfileInventory extends FastInv {
 
     public ProfileInventory(List<GUIItem> items, Player player, Player target, int size, String title) {
-        super(size, Utils.tryParsePAPI(title, player, target));
+        super(size, Utils.tryParsePAPI(Common.color(title), player, target));
 
         this.setAllItems(items, player, target);
 
         // If auto refresh is enabled
         if(ConfigValue.AUTO_REFRESH_ENABLED){
             // Start the auto refresh task
-            BukkitTask task = Executor.syncTimer(0L, ConfigValue.AUTO_REFRESH_TICK, () ->
+            HandleTask task = Executor.syncTimer(0L, ConfigValue.AUTO_REFRESH_TICK, () ->
                     this.setAllItems(items, player, target));
             // And remove the task after the inventory closed
             this.addCloseHandler(event -> task.cancel());
@@ -33,7 +36,7 @@ public class ProfileInventory extends SimpleInventory {
         // If distance check is enabled
         if(ConfigValue.DISTANCE_CHECK_ENABLED){
             // Start the check distance task
-            BukkitTask task = Executor.syncTimer(0L, 20L, () ->
+            HandleTask task = Executor.syncTimer(0L, 20L, () ->
                     checkDistance(player, target));
             // And remove the task after the inventory closed
             this.addCloseHandler(event -> task.cancel());
@@ -41,9 +44,12 @@ public class ProfileInventory extends SimpleInventory {
 
     }
 
-    private void setAllItems(List<GUIItem> items, Player player, Player target){
+    private void setAllItems(List<GUIItem> items, Player player, Player target) {
+        List<GUIItem> clonedItem = new ArrayList<>(items);
+        clonedItem.sort(Comparator.comparingInt(GUIItem::priority));
+
         // Loop through all items
-        items.forEach(item -> {
+        clonedItem.forEach(item -> {
             // Get the item stack
             ItemStack stack = ItemManager.createGUIItem(item, player, target);
             // Check if the item use permission to see
@@ -74,7 +80,7 @@ public class ProfileInventory extends SimpleInventory {
             });
         });
         // After all items being set, we finally set the fill items
-        ItemManager.fillItem(this, ConfigManager.GUI.getConfig());
+        ItemManager.fillItem(this, PlayerProfiles.GUI_DEFAULT.getConfig());
     }
 
     private void checkDistance(Player player, Player target){

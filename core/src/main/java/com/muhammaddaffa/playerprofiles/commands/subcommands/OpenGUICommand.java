@@ -6,7 +6,7 @@ import com.muhammaddaffa.playerprofiles.commands.abstraction.SubCommand;
 import com.muhammaddaffa.playerprofiles.inventory.InventoryManager;
 import com.muhammaddaffa.playerprofiles.manager.customgui.CustomGUI;
 import com.muhammaddaffa.playerprofiles.manager.customgui.CustomGUIManager;
-import me.aglerr.mclibs.libs.Common;
+import com.muhammaddaffa.mdlib.utils.Common;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

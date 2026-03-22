@@ -1,10 +1,9 @@
 package com.muhammaddaffa.playerprofiles.utils;
 
+import com.muhammaddaffa.mdlib.utils.Common;
+import com.muhammaddaffa.mdlib.xseries.XSound;
 import com.muhammaddaffa.playerprofiles.PlayerProfiles;
-import com.muhammaddaffa.playerprofiles.configs.ConfigManager;
 import com.muhammaddaffa.playerprofiles.manager.profile.ProfileManager;
-import me.aglerr.mclibs.libs.Common;
-import me.aglerr.mclibs.xseries.XSound;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -38,7 +37,7 @@ public class Utils {
         // Target profile status
         String targetStatus = profileManager.isProfileLocked(target) ? "&cLocked" : "&aUnlocked";
         // Finally, return the value with parsed player and target
-        return Common.tryParsePAPI(player, message)
+        return Common.papi(target, message)
                 .replace("{player}", player.getName())
                 .replace("{target}", target.getName())
                 .replace("{player_status}", playerStatus)
@@ -61,7 +60,7 @@ public class Utils {
 
     public static void playSound(Player player, String soundPath){
         // Get the config.yml
-        FileConfiguration config = ConfigManager.CONFIG.getConfig();
+        FileConfiguration config = PlayerProfiles.CONFIG_DEFAULT.getConfig();
         // Get the path to the sound
         String path = "sounds." + soundPath;
         // Return if the sound isn't enabled
@@ -82,6 +81,11 @@ public class Utils {
         float pitch = (float) config.getDouble(path + ".pitch");
         // Finally play the sound to the player
         player.playSound(location, sound, volume, pitch);
+    }
+
+    public static boolean hasOffHand() {
+        return !Bukkit.getVersion().contains("1.7") ||
+                !Bukkit.getVersion().contains("1.8");
     }
 
 }
