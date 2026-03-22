@@ -31,6 +31,7 @@ public class PlayerProfiles extends JavaPlugin {
     @Override
     public void onLoad() {
         MDLib.inject(this);
+        MDLib.registerWorldGuard();
     }
 
     @Override
