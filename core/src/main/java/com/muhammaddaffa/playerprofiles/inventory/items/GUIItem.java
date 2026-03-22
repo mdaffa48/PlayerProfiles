@@ -16,6 +16,7 @@ public record GUIItem(
         List<String> leftCommands,
         List<String> rightCommands,
         int customModelData,
+        String itemModel,
         boolean onlyOwner,
         boolean onlyVisitor,
         int priority

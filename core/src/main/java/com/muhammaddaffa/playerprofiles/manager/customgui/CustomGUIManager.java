@@ -83,12 +83,18 @@ public class CustomGUIManager {
                 List<String> leftCommands = config.getStringList(path + ".leftClickCommands");
                 List<String> rightCommands = config.getStringList(path + ".rightClickCommands");
                 int customModelData = config.getInt(path + ".customModelData");
+                String itemModel = config.getString(path + ".itemModel");
                 boolean onlyOwner = config.getBoolean(path + ".onlyOwner");
                 boolean onlyVisitor = config.getBoolean(path + ".onlyVisitor");
                 int priority = config.getInt(path + ".priority", 0);
+
+                // Null-safe for item model
+                if (itemModel == null || itemModel.isEmpty()) {
+                    itemModel = "";
+                }
                 // Create the GUIItem object
                 GUIItem guiItem = new GUIItem(type, material, amount, name, slots, glowing, hideAttributes, usePermission,
-                        permission, lore, leftCommands, rightCommands, customModelData, onlyOwner, onlyVisitor, priority);
+                        permission, lore, leftCommands, rightCommands, customModelData, itemModel, onlyOwner, onlyVisitor, priority);
                 // Finally add the gui item to the list that has been created before
                 guiItems.add(guiItem);
             }

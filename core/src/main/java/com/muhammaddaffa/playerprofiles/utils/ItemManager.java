@@ -1,26 +1,22 @@
 package com.muhammaddaffa.playerprofiles.utils;
 
-import com.github.sirblobman.api.shaded.xseries.profiles.objects.ProfileInputType;
-import com.github.sirblobman.api.shaded.xseries.profiles.objects.Profileable;
 import com.muhammaddaffa.mdlib.fastinv.FastInv;
 import com.muhammaddaffa.mdlib.utils.Common;
 import com.muhammaddaffa.mdlib.utils.ItemBuilder;
 import com.muhammaddaffa.mdlib.xseries.XMaterial;
-import com.muhammaddaffa.playerprofiles.PlayerProfiles;
 import com.muhammaddaffa.playerprofiles.inventory.items.GUIItem;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.block.Skull;
+import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.SkullMeta;
 
-import javax.annotation.Nonnull;
 import java.util.Optional;
+import java.util.UUID;
 
 public class ItemManager {
 
@@ -82,8 +78,25 @@ public class ItemManager {
         // Add hide attributes item flag if it's enabled
         if(item.hideAttributes()) builder.flags(ItemFlag.HIDE_ATTRIBUTES);
         // Add random enchant and hide enchant attributes if item set to glowing
-        if(item.glowing()) builder.enchant(Enchantment.ARROW_DAMAGE).flags(ItemFlag.HIDE_ENCHANTS);
-        return builder.build();
+        if(item.glowing()) builder.enchant(Enchantment.UNBREAKING).flags(ItemFlag.HIDE_ENCHANTS);
+        // Finally build the item stack
+        ItemStack stack = builder.build();
+        // Create ItemMeta
+        ItemMeta meta = stack.getItemMeta();
+        if (meta == null) return null;
+        // Add the item model if it's not null or empty
+        String modelItemString = item.itemModel();
+        if (isVersionAtLeast(1, 21, 2)) {
+            if (modelItemString != null) {
+                String[] parts = modelItemString.split(":", 2);
+                if (parts.length == 2) {
+                    NamespacedKey modelItem = NamespacedKey.fromString(parts[0] + ":" + parts[1]);
+                    meta.setItemModel(modelItem);
+                    stack.setItemMeta(meta);
+                }
+            }
+        }
+        return stack;
     }
 
     public static ItemStack createGUIItem(GUIItem item, Player player, Player target){
@@ -173,6 +186,54 @@ public class ItemManager {
                 .name("&cInvalid Material!")
                 .lore("&7Please check your configuration for item '{item}'".replace("{item}", item.name()), " ", "&7Additional Information:", "&7Material: {material}".replace("{material}", item.material()))
                 .build();
+    }
+
+    private static boolean isUuidString(String input) {
+        if (input == null) return false;
+        try {
+            UUID.fromString(input);
+            return true;
+        } catch (IllegalArgumentException ex) {
+            return false;
+        }
+    }
+
+    private static boolean isBase64Texture(String input) {
+        if (input == null) return false;
+        // Ciri umum base64 textures Mojang: string panjang, karakter base64, sering diawali "eyJ0ZXh0dXJlcy"
+        if (input.length() < 40) return false;
+        if (input.startsWith("eyJ0ZXh0dXJlcy")) return true;
+        // Kalau kamu simpan URL textures langsung, bisa tambahkan cek "http://textures.minecraft.net"
+        if (input.startsWith("http://textures.minecraft.net") || input.startsWith("https://textures.minecraft.net")) {
+            return true;
+        }
+        // Cek karakter base64 dasar
+        for (int i = 0; i < input.length(); i++) {
+            char c = input.charAt(i);
+            boolean ok = (c >= 'A' && c <= 'Z')
+                    || (c >= 'a' && c <= 'z')
+                    || (c >= '0' && c <= '9')
+                    || c == '+' || c == '/' || c == '=' || c == '-' || c == '_';
+            if (!ok) return false;
+        }
+        return true;
+    }
+
+    public static boolean isVersionAtLeast(int major, int minor, int patch) {
+        String version = Bukkit.getBukkitVersion().split("-")[0];
+        String[] parts = version.split("\\.");
+
+        try {
+            int maj = Integer.parseInt(parts[0]);
+            int min = Integer.parseInt(parts[1]);
+            int pat = parts.length > 2 ? Integer.parseInt(parts[2]) : 0;
+
+            if (maj != major) return maj > major;
+            if (min != minor) return min > minor;
+            return pat >= patch;
+        } catch (NumberFormatException e) {
+            return false; // fallback
+        }
     }
 
 

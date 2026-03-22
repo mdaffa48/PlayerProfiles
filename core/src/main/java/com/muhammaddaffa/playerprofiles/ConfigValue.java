@@ -146,6 +146,8 @@ public class ConfigValue {
                 hideAttributes: false
                 # You can set the item custom model data
                 customModelData: 0
+                # You can set the item model data
+                # itemModel: minecraft:dirt
                 # You can set the item to only be seen by the visitor
                 # Or only be seen by the owner
                 # Or both
@@ -192,6 +194,8 @@ public class ConfigValue {
                 glowing: false
                 hideAttributes: true
                 customModelData: 0
+                # You can set the item model data
+                # itemModel: minecraft:dirt
                 onlyVisitor: false
                 onlyOwner: false
                 lore:
