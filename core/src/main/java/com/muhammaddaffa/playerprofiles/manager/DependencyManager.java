@@ -32,13 +32,15 @@ public class DependencyManager {
         if(WORLD_GUARD){
             Plugin plugin = pm.getPlugin("WorldGuard");
 
-            if(plugin.getDescription().getVersion().startsWith("6"))
+            if(plugin.getDescription().getVersion().startsWith("6")) {
                 Logger.info("&rFound WorldGuard! Using WorldGuard API version 6");
                 WORLD_GUARD_VERSION = 6;
+            }
 
-            if(plugin.getDescription().getVersion().startsWith("7"))
+            if(plugin.getDescription().getVersion().startsWith("7")) {
                 Logger.info("&rFound WorldGuard! Using WorldGuard API version 7");
                 WORLD_GUARD_VERSION = 7;
+            }
         }
 
     }
