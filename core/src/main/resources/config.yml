@@ -1,0 +1,115 @@
+# Configuration Explanation:
+# (options)
+#   (disableNPC) Should we disable viewing the NPC's profile?
+#   (disableInCombat)
+#     (enabled) Should we prevent player from opening profile while in combat?
+#     (message) The message that will be sent if player trying to open profile while in combat
+#   (shiftClick) Should player open profile by shift clicking?
+#                If disabled, right click will open player profile
+options:
+  disableNPC: true #Disable player from viewing NPC profile.
+  disableInCombat:
+    enabled: true
+    message: "{prefix} &cYou are not allowed to open profile while in combat!"
+  shiftClick: true
+
+# This feature is to auto update the placeholder on every item
+# Configuration Explanation:
+# (autoRefresh)
+#   (enabled) Should we enabled this feature?
+#   (refreshEvery) How often should we update the item? (Time is in ticks - 20 ticks = 1 second)
+autoRefresh:
+  enabled: true
+  refreshEvery: 20
+
+# This feature is to give player cooldown to open profiles
+# (cooldown)
+#   (enabled) Should we enable this feature?
+#   (duration) How long is the cooldown? (Time in second)
+#   (message) Message that will be sent if player trying to open profile while on cooldown
+cooldown:
+  enabled: true
+  duration: 3 #in seconds
+  message: "{prefix} &cPlease wait for another {time} second(s)!"
+
+# Aliases for commands in this plugin
+# Configuration Explanation:
+# (commandAliases)
+#   (playerProfiles) Aliases for /playerprofiles command (main command)
+#   (profile) Aliases for /profile command
+#   (lockProfile) Aliases for /lockprofile command
+#   (unlockProfile) Aliases for /unlockprofile command
+commandAliases:
+  playerProfiles:
+    - 'playerprofile'
+    - 'playerp'
+    - 'pp'
+  profile:
+    - 'viewprofile'
+    - 'p'
+  lockProfile:
+    - 'profilelock'
+    - 'lock'
+  unlockProfile:
+    - 'profileunlock'
+    - 'unlock'
+
+# If the world name is in the list and players location is inside
+# the world that are on the list, player are unable to open any player profiles
+# Note: The world name is case sensitive
+disabledWorlds:
+  message: "{prefix} &cYou are not allowed to open profile in this world!"
+  worlds:
+    - 'pvpWorld'
+    - 'testWorld'
+
+# If the region name is in this list, player are unable to
+# open other's player profile with condition if the player/others location
+# is inside the disable regions (the region name is case-sensitive)
+disabledRegions:
+  playerInDisabledRegionMessage: "{prefix} &cYou are not allowed to open profile in this region!"
+  targetInDisabledRegionMessage: "{prefix} &cThe target is in disabled region area!"
+  regions:
+    - 'disabledRegions'
+    - 'pvp'
+
+# This feature is to check between player1 (the player) and player2 (the target) location distance
+# if the distance is greater than the configured distance - player1 will close the profile inventory
+# Configuration Explanation:
+# (distanceCheck)
+#   (enabled) Should we enabled this feature?
+#   (distance) The maximum distance (number is in blocks)
+#   (tooFarMessage) Message if the distance is greater than the configured distance
+distanceCheck:
+  enabled: true
+  distance: 30
+  tooFarMessage: "{prefix} &e{player} &cis too far from you!"
+
+sounds:
+  onProfileOpen:
+    enabled: true
+    sound: BLOCK_LAVA_POP
+    volume: 1
+    pitch: 1
+
+messages:
+  prefix: '&8[&6Profile&8]'
+  noPermission: "{prefix} &cYou are lacking permission '{permission}'"
+  reload: "{prefix} &aYou have reloaded the configuration!"
+  invalidPlayer: "{prefix} &cThe player '{player}' is not online!"
+  targetProfileLocked: "{prefix} &cThe target profile is locked!"
+  lockProfile: "{prefix} &7You have &clocked &7your profile."
+  lockProfileOthers: "{prefix} &7You have &clocked &7{player}'s profile."
+  unlockProfile: "{prefix} &7You have &aunlocked &7your profile."
+  unlockProfileOthers: "{prefix} &7You have &aunlocked &7{player}'s profile."
+  invalidGUIName: "{prefix} &cThere is no GUI with name '{gui}' &7(See /playerprofiles listgui)"
+  listGUI: "{prefix} &7List GUI: &a{gui}"
+  help:
+    - "&6&lPlayerProfiles &7- by aglerr"
+    - "&6- /playerprofiles help &7- shows the help messages"
+    - "&6- /playerprofiles reload &7- reload the configuration"
+    - "&6- /playerprofiles opengui (player) (target) (gui-name) &7- open custom gui"
+    - "&6- /playerprofiles listgui &7- see the list of custom gui names"
+    - "&6- /lockprofile [player] &7- lock your own/others profile"
+    - "&6- /unlockprofile [player] &7- unlock your own/others profile"
+    - "&6- /profile [player] &7- see your own/others profile"

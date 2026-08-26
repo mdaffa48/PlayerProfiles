@@ -1,0 +1,156 @@
+title: "&8Punish (&a{target}&8)"
+size: 27
+
+fillItems:
+  enabled: true
+  material: BLACK_STAINED_GLASS_PANE
+  name: "&f"
+  lore: []
+
+items:
+  targetInformation:
+    material: head;{target}
+    name: "&6{target}'s Information"
+    slots: [ 4 ]
+    glowing: false
+    hideAttributes: false
+    customModelData: 0
+    onlyVisitor: false
+    onlyOwner: false
+    usePermission: false
+    permission: "custom.permission"
+    lore:
+      - ""
+      - " * &7Profile Status: {target_status}"
+      - " * &7Health: &c{target_health}"
+      - " * &7Level: &6{target_level}"
+      - " * &7Experience: &6{target_exp}"
+      - " * &7World: &6{target_world}"
+      - ""
+      - "&bMore with PlaceholderAPI"
+      - " * &7Is Flying: &6%player_is_flying%"
+      - " * &7Is Sneaking: &6%player_is_sneaking%"
+      - " * &7Is Sprinting: &6%player_is_sprinting%"
+      - " * &7Is OP: &6%player_is_op%"
+      - " * &7Ping: &a%player_ping%ms"
+    leftClickCommands: []
+    rightClickCommands: []
+  kickPlayer:
+    material: GOLDEN_BOOTS
+    name: "&6Kick {target}"
+    slots: [ 11 ]
+    glowing: false
+    hideAttributes: true
+    customModelData: 0
+    onlyVisitor: false
+    onlyOwner: false
+    usePermission: true
+    permission: "playerprofiles.kick"
+    lore:
+      - "&7Click to kick {target}"
+    leftClickCommands:
+      - "[CONSOLE] kick {target}"
+      - "[MESSAGE] &8[&6Profile&8] &aYou have kicked &e{target}"
+      - "[CLOSE]"
+    rightClickCommands:
+      - "[CONSOLE] kick {target}"
+      - "[MESSAGE] &8[&6Profile&8] &aYou have kicked &e{target}"
+      - "[CLOSE]"
+  banPlayer:
+    material: DIAMOND_AXE
+    name: "&6Ban {target}"
+    slots: [ 12 ]
+    glowing: false
+    hideAttributes: true
+    customModelData: 0
+    onlyVisitor: false
+    onlyOwner: false
+    usePermission: true
+    permission: "playerprofiles.ban"
+    lore:
+      - "&7Click to ban {target}"
+    leftClickCommands:
+      - "[CONSOLE] ban {target}"
+      - "[MESSAGE] &8[&6Profile&8] &aYou have banned &e{target}"
+      - "[CLOSE]"
+    rightClickCommands:
+      - "[CONSOLE] ban {target}"
+      - "[MESSAGE] &8[&6Profile&8] &aYou have banned &e{target}"
+      - "[CLOSE]"
+  mutePlayer:
+    material: RED_CARPET
+    name: "&6Mute {target} for 5 minutes"
+    slots: [ 13 ]
+    glowing: false
+    hideAttributes: false
+    customModelData: 0
+    onlyVisitor: false
+    onlyOwner: false
+    usePermission: true
+    permission: "playerprofiles.mute"
+    lore:
+      - "&7Click to mute {target} for 5 minutes!"
+    leftClickCommands:
+      - "[CONSOLE] mute {target} 5m"
+      - "[MESSAGE] &8[&6Profile&8] &aYou have muted &e{target} &afor 5 minutes!"
+      - "[CLOSE]"
+    rightClickCommands:
+      - "[CONSOLE] mute {target} 5m"
+      - "[MESSAGE] &8[&6Profile&8] &aYou have muted &e{target} &afor 5 minutes!"
+      - "[CLOSE]"
+  killPlayer:
+    material: DIAMOND_SWORD
+    name: "&6Kill {target}"
+    slots: [ 14 ]
+    glowing: false
+    hideAttributes: false
+    customModelData: 0
+    onlyVisitor: false
+    onlyOwner: false
+    usePermission: true
+    permission: "playerprofiles.kill"
+    lore:
+      - "&7Click to kill {target}"
+    leftClickCommands:
+      - "[CONSOLE] kill {target}"
+      - "[MESSAGE] &8[&6Profile&8] &aYou have killed &e{target}"
+      - "[CLOSE]"
+    rightClickCommands:
+      - "[CONSOLE] kill {target}"
+      - "[MESSAGE] &8[&6Profile&8] &aYou have killed &e{target}"
+      - "[CLOSE]"
+  clearInventory:
+    material: CHEST
+    name: "&6Clear {target} inventory"
+    slots: [ 15 ]
+    glowing: false
+    hideAttributes: false
+    customModelData: 0
+    onlyVisitor: false
+    onlyOwner: false
+    usePermission: true
+    permission: "playerprofiles.clearinventory"
+    lore:
+      - "&7Click to clear {target} inventory"
+    leftClickCommands:
+      - "[CONSOLE] clear {target}"
+      - "[MESSAGE] &8[&6Profile&8] &aYou have cleared &e{target} &ainventory"
+      - "[CLOSE]"
+    rightClickCommands:
+      - "[CONSOLE] clear {target}"
+      - "[MESSAGE] &8[&6Profile&8] &aYou have cleared &e{target} &ainventory"
+      - "[CLOSE]"
+  backButton:
+    material: head;eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMWMwNjQ2YTI4YjQ1MWRhNzQzOTRlNjk4YjA0ZmFjOTM1YmExOTc1ZjQyODI5MDY3YTBmYmZlZDE4MWEzNjU5NCJ9fX0=
+    name: "&cBack"
+    slots: [ 18 ]
+    glowing: false
+    hideAttributes: false
+    customModelData: 0
+    onlyVisitor: false
+    onlyOwner: false
+    usePermission: false
+    permission: "custom.permission"
+    lore: []
+    leftClickCommands:
+      - "[CONSOLE] playerprofiles openprofile {target} {player}"

@@ -1,0 +1,183 @@
+title: "&8{target}'s Profiles"
+size: 54
+
+fillItems:
+  enabled: true
+  material: BLACK_STAINED_GLASS_PANE
+  name: "&f"
+  lore: []
+
+items:
+  tradeTarget:
+    material: EMERALD
+    name: "&eTrade {target}"
+    slots: [ 24 ]
+    glowing: false
+    hideAttributes: false
+    customModelData: 0
+    onlyOwner: false
+    onlyVisitor: false
+    usePermission: false
+    permission: "custom.permission"
+    lore:
+      - "&7Click to trade with &e{target}"
+    leftClickCommands:
+      - "[PLAYER] trade {target}"
+      - "[MESSAGE] &7Trade request has been sent to &e{target}"
+      - "[CLOSE]"
+    rightClickCommands:
+      - "[PLAYER] trade {target}"
+      - "[MESSAGE] &7Trade request has been sent to &e{target}"
+      - "[CLOSE]"
+  customMenu:
+    material: DIAMOND_AXE
+    name: "&ePunish {target}"
+    slots: [ 23 ]
+    glowing: false
+    hideAttributes: true
+    customModelData: 0
+    onlyOwner: false
+    onlyVisitor: false
+    usePermission: true
+    permission: "playerprofiles.punishgui"
+    lore:
+      - "&7This item can only be seen by the"
+      - "&7profile visitors with permission"
+      - "&7'playerprofiles.punishgui'"
+      - ""
+      - "&aClick to punish {target}"
+    leftClickCommands:
+      - "[OPENGUIMENU] punish-gui.yml"
+    rightClickCommands:
+      - "[OPENGUIMENU] punish-gui.yml"
+  exampleHelmet:
+    type: HELMET
+    material: RED_STAINED_GLASS_PANE
+    name: "&eHelmet"
+    slots: [10]
+    glowing: true
+    hideAttributes: false
+    customModelData: 0
+    onlyOwner: false
+    onlyVisitor: false
+    usePermission: false
+    permission: "custom.permission"
+    lore:
+      - "&cEmpty!"
+  exampleChestplate:
+    type: CHESTPLATE
+    material: RED_STAINED_GLASS_PANE
+    name: "&eChestplate"
+    slots: [ 19 ]
+    glowing: true
+    hideAttributes: false
+    customModelData: 0
+    onlyOwner: false
+    onlyVisitor: false
+    usePermission: false
+    permission: "custom.permission"
+    lore:
+      - "&cEmpty!"
+  exampleLeggings:
+    type: LEGGINGS
+    material: RED_STAINED_GLASS_PANE
+    name: "&eLeggings"
+    slots: [ 28 ]
+    glowing: true
+    hideAttributes: false
+    customModelData: 0
+    onlyOwner: false
+    onlyVisitor: false
+    usePermission: false
+    permission: "custom.permission"
+    lore:
+      - "&cEmpty!"
+  exampleBoots:
+    type: BOOTS
+    material: RED_STAINED_GLASS_PANE
+    name: "&eBoots"
+    slots: [ 37 ]
+    glowing: true
+    hideAttributes: false
+    customModelData: 0
+    onlyOwner: false
+    onlyVisitor: false
+    usePermission: false
+    permission: "custom.permission"
+    lore:
+      - "&cEmpty!"
+  exampleMainHand:
+    type: MAIN_HAND
+    material: RED_STAINED_GLASS_PANE
+    name: "&eMain Hand"
+    slots: [ 20 ]
+    glowing: true
+    hideAttributes: false
+    customModelData: 0
+    onlyOwner: false
+    onlyVisitor: false
+    usePermission: false
+    permission: "custom.permission"
+    lore:
+      - "&cEmpty!"
+  exampleOffhand:
+    type: OFF_HAND
+    material: RED_STAINED_GLASS_PANE
+    name: "&eOff Hand"
+    slots: [ 29 ]
+    glowing: true
+    hideAttributes: false
+    customModelData: 0
+    onlyOwner: false
+    onlyVisitor: false
+    usePermission: false
+    permission: "custom.permission"
+    lore:
+      - "&cEmpty!"
+  unlockProfile:
+    material: head;eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjA3ZmJjMzM5ZmYyNDFhYzNkNjYxOWJjYjY4MjUzZGZjM2M5ODc4MmJhZjNmMWY0ZWZkYjk1NGY5YzI2In19fQ==
+    name: "&aUnlock Profile"
+    slots: [ 53 ]
+    glowing: true
+    hideAttributes: false
+    customModelData: 0
+    onlyOwner: true
+    onlyVisitor: false
+    usePermission: false
+    permission: "custom.permission"
+    lore:
+      - "&7Click to unlock your profile"
+    leftClickCommands:
+      - "[CONSOLE] unlockprofile {target}"
+    rightClickCommands:
+      - "[CONSOLE] unlockprofile {target}"
+  profileStatus:
+    material: CHEST
+    name: "&6Profile Status"
+    slots: [ 52 ]
+    glowing: false
+    hideAttributes: false
+    customModelData: 0
+    onlyOwner: true
+    onlyVisitor: false
+    usePermission: false
+    permission: "custom.permission"
+    lore:
+      - "{target_status}"
+  lockProfile:
+    material: head;eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzE5ZjUwYjQzMmQ4NjhhZTM1OGUxNmY2MmVjMjZmMzU0MzdhZWI5NDkyYmNlMTM1NmM5YWE2YmIxOWEzODYifX19
+    name: "&cLock Profile"
+    slots: [ 51 ]
+    glowing: true
+    hideAttributes: false
+    customModelData: 0
+    onlyOwner: true
+    onlyVisitor: false
+    usePermission: false
+    permission: "custom.permission"
+    lore:
+      - "&7Click to lock your profile"
+    leftClickCommands:
+      - "[CONSOLE] lockprofile {target}"
+    rightClickCommands:
+      - "[CONSOLE] lockprofile {target}"
