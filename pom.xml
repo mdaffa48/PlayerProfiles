@@ -7,11 +7,15 @@
     <groupId>com.muhammaddaffa</groupId>
     <artifactId>PlayerProfiles</artifactId>
     <packaging>pom</packaging>
-    <version>8.0.4</version>
+    <version>8.0.5</version>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <spigot.version>1.21.11-R0.1-SNAPSHOT</spigot.version>
+        <worldguard.version>7.0.10</worldguard.version>
+        <worldedit.version>7.3.12</worldedit.version>
     </properties>
 
     <modules>
@@ -19,7 +23,6 @@
         <module>core</module>
         <module>api</module>
         <module>worldguard-wrapper</module>
-        <module>worldguard6</module>
         <module>worldguard7</module>
     </modules>
 

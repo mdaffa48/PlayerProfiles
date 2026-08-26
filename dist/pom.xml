@@ -6,14 +6,12 @@
     <parent>
         <groupId>com.muhammaddaffa</groupId>
         <artifactId>PlayerProfiles</artifactId>
-        <version>8.0.4</version>
+        <version>8.0.5</version>
     </parent>
 
     <artifactId>dist</artifactId>
 
     <properties>
-        <maven.compiler.source>21</maven.compiler.source>
-        <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -53,11 +51,6 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>worldguard6</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
